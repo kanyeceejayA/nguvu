@@ -103,6 +103,9 @@
         </div>
         <div class="col-sm-3 card">
           <p class="title">Total Recorded funding<br> <span><?php echo $amount;?></span></p>
+          <?php if(isset($_SESSION['username'])){ ?>
+              <a href='admin/edit_investors?p=<?php echo $inv_id;?>'><i class='fa fa-edit'></i>&nbsp;Edit Investor</a><br>
+            <?php } ?>
         </div>
       </div> <!-- row -->
 

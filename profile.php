@@ -3,6 +3,7 @@
   if (!isset($_GET['p'])) {
     header('location:startups');
   }
+  $s_id=$_GET['p'];
   $stmt = $pdo->prepare('select * from single_startups_view where s_id=?');
   $stmt->execute(array($_GET['p']));
   if($stmt->rowCount()!=1){
@@ -80,6 +81,9 @@
         </div>
         <div class="col-sm-3 card">
           <p class="title">Total Funding Amount<br> <span><?php echo $funding;?></span></p>
+          <?php if(isset($_SESSION['username'])){ ?>
+              <a href='admin/edit_startup?p=<?php echo $s_id;?>'><i class='fa fa-edit'></i>&nbsp;Edit Startup</a><br>
+            <?php } ?>
         </div>
       </div> <!-- row -->
 
@@ -123,6 +127,7 @@
               <a href='<?php echo $twitter;?>' target='_blank' rel='noopener'><i class='fa fa-twitter'></i>&nbsp;Twitter</a><br>
               <a href='<?php echo $linkedin;?>' target='_blank' rel='noopener'><i class='fa fa-linkedin'></i>&nbsp;LinkedIn</a><br>
               <a href='<?php echo $website;?>' target='_blank' rel='noopener'><i class='fa fa-globe'></i>&nbsp;Website</a><br>
+              
             </span>
         </div>
       </div>

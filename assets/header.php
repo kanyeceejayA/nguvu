@@ -76,21 +76,22 @@
                 <i class="material-icons">post_add</i>Add Deal
               </a>
             </div>
-          </li>
-
-          <!-- <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">person</i> Akbr
-            </a>
-            <div class="dropdown-menu dropdown-with-icons">
-              <a href="edit_info.php" class="dropdown-item">
-                <i class="material-icons">edit</i>Edit Info
-              </a>
-              <a href="logout.php" class="dropdown-item">
-                <i class="material-icons">logout</i> Log Out
-              </a>
-            </div>
-          </li> -->
+          </li> 
+          <?php if(isset($_SESSION['username'])){ ?>
+              <li class="dropdown nav-item">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  <i class="material-icons">person</i> <?php echo $_SESSION['username'];?>
+                </a>
+                <div class="dropdown-menu dropdown-with-icons">
+                  <a href="startups" class="dropdown-item">
+                  <i class="material-icons">apartment</i> View Companies
+                </a>
+                  <a href="admin/logout" class="dropdown-item">
+                    <i class='fa fa-external-link' ></i> Logout
+                  </a>
+                </div>
+              </li>
+            <?php } ?>
           
         </ul>
       </div>

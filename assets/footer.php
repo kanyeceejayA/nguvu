@@ -1,7 +1,14 @@
 
   <footer class="footer footer-default">
     <div class="container">
-      <div class=" copyright float-left"><a href="admin/index">Admin</a></div>
+      <div class=" copyright float-left">
+      <?php if(isset($_SESSION['username'])){ ?>
+              Logged In as <?php echo $_SESSION['username'];?>. <a href="admin/logout">Logout</a>
+      <?php } ?>
+      <?php if(!isset($_SESSION['username'])){ ?>
+          <a href="admin/index">Admin</a>
+      <?php } ?>
+      </div>
       <div class="copyright float-right">
         &copy;
         <script>
