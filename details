@@ -1,0 +1,83 @@
+No option for adding co-founders
+Database not editable
+Add all countries and maybe subsection them by continent.
+Investor profiles can’t be viewed
+There is no provision for filing investors who co-invest (for instance, in its latest funding round, SafeBoda secured investment from Allianz X and Go Venture Capital)]
+the feature for 'add deals' doesn't work: as in, it doesn't give an option for adding information
+
+
+
+
+
+
+
+
+
+
+
+
+
+#New Priorities:
+#	-figure out returning results
+#	-returning countries not working either way
+
+	-Finish database design
+		-build first filter
+		-	
+	-Make view list of investors page
+	make individual 
+
+
+
+
+
+
+
+
+
+issues with startups
+	- entry form missing money fields
+	-extra zeroes on money to be removed
+	-logo submission
+	-filters
+	make deals table
+
+
+
+
+
+
+
+
+
+
+Next Tasks:
+#	1. Build Data Entry Form for startups 
+#	2. Build Data Entry Form for investors
+#	2. Make Entry Script for Investors
+#	2. Make entry script for startups
+	3. Make view page for startups
+		-Make layout with default data
+		-use normal data to get details
+		-beautify page link
+		-build api for returning one company's details
+		-learn how to show values from JS
+		-figure out the page
+	3. Make view page for Investors
+	4. edit list view for startups
+	5. edit list view for investors
+	4.troubleshoot file upload for logos
+
+
+
+
+
+
+
+
+
+
+
+
+
+

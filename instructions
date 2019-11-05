@@ -1,0 +1,44 @@
+Structure of app
+
+Entry Forms 		->Script(in actions)
+	Add_startup		->create.php
+	add_investor	->create-investor.php
+	add_funding		->create-funding.php
+
+Viewing Pages
+	startups
+	investors
+	funding
+
+edit_pages
+	edit_startup	->update-startup.php
+	edit_investor	->update-investor.php
+	edit_deal		->update-deal.php
+	edit_founders	->update-founders.php
+
+
+edit_startup
+	copy over the add_investors.php page,
+	make a php script(in the page) that selects all details for any individual startup in the database 
+	show these details in their respective fields.
+	ignore the founders fields, since those send their details to antoher database. remove those fields from your form
+	create an update-startup.php action that updates the affected data.
+	the id of the field to edit should be gotten through a GET parameter, i.e localhost/nguvu/edit_startup?p=1
+	any other tasks you deem necessary
+
+edit_deal,edit_investor
+	copy steps above, modify and improve
+
+env.php
+	As you've been taught, it's best to have a different environment file for localhost and another for the live server.
+	Life is too short for me to make that many files. I just have an if statement that decides whether the content is on a server or on localhost.
+	it then sets the variables.
+	it has the db login details, holds the path where i store logos, and other variables.
+	So feel free to comment out the values in the first array, and place your own values there.
+
+DB structure
+	The db is made of an invesotrs table, a startups table, and a deals table. there are many auxilliary tables that support these main ones. many columns in the startup table simply hold foreign keys pointing to values in other tables. 
+	Regarding what each table is, how it came to be, and it's description(not necessary for your task, but helpful in the long run), I can share a google sheet with the database structure.
+
+good luck figuring this all out, and don't hesitate to ask questions!
+
