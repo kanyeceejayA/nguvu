@@ -34,9 +34,12 @@ function test_input($data) {
 
 function logo_check($logo='')
 {
-  if(strpos($logo, 'assets') === false || substr($logo, -1) =='.' || !file_exists($logo)){
+  if(strpos($logo, 'assets') === false || substr($logo, -1) =='.'){
         return 'assets/img/nguvu_default.png';
-      } 
+      }
+  elseif (!file_exists($logo) && !file_exists('../'.$logo) ) {
+         return 'assets/img/nguvu_default.png';
+   } 
     else{
       return $logo;
     }
