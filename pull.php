@@ -12,11 +12,11 @@ if (isEnabled('shell_exec')) {
     shell_exec('echo "enabled"');
     echo "it is enabled, from echo functions<br>";
 }else{
-	echo 'its not enabled<br><br> >>>>>>>>>>>>';
+	echo 'its not enabled<br><br> >>>>>>>>>>>><br><br>';
 }
 
-if(!is_callable('shell_exec')){
-	echo "it's not callable";
+if(is_callable('shell_exec')){
+	echo "it's callable";
 }
 elseif(false === stripos(ini_get('disable_functions'), 'shell_exec')){
 	echo "It is enabled";
