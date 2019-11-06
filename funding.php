@@ -61,15 +61,8 @@
               $i_location = $row['i_location'];
               
               //handle money
-              $amount =$row['amount'];
-              if ($amount=='0'){
-                $amount = 'Undisclosed Amount';
-              }else{
-                $fmt2 = new NumberFormatter( 'UG', NumberFormatter::DECIMAL );
-                $fmt2->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 0);
-                $amount = $fmt2->formatCurrency(($amount),"USD");
-                $amount = 'US $'.$amount;
-              }
+              $amount =format_money($row['amount']);
+              
 
               $round = $row['round'];
               $date = $row['d_date'];

@@ -48,11 +48,13 @@ function logo_check($logo='')
 function format_money($amount='0')
 {
   if ($amount=='0' || $amount==0 || is_null($amount)){
-    $amount = 'Undisclosed Amount';
+    $amount = 'Undisclosed amount';
   }else{
-    $fmt2 = new NumberFormatter( 'UG', NumberFormatter::DECIMAL );
-    $fmt2->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 0);
-    $amount = $fmt2->formatCurrency(($amount),"USD");
+    // $fmt2 = new NumberFormatter( 'UG', NumberFormatter::DECIMAL );
+    // $fmt2->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 0);
+    // $amount = $fmt2->formatCurrency(($amount),"USD");
+
+    $amount = number_format($amount);
     $amount = 'US $'.$amount;
   }
   return $amount;
