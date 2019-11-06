@@ -38,7 +38,14 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
       $logo = logo_check($row['logo']);
     }
 
-$stmt = $pdo->prepare("select count(f_name) no_founders from founders where s_id ='$s_id';");
+    //fetch Founders
+    $stmt = $pdo->prepare("select count(f_name) no_founders from founders where s_id ='$s_id';");
+    $stmt->execute(array());
+    foreach ($stmt as $row) {
+      $no_founders = $row['no_founders'];
+    }
+    //fetch Countries
+    $stmt = $pdo->prepare("select count(f_name) no_founders from founders where s_id ='$s_id';");
     $stmt->execute(array());
     foreach ($stmt as $row) {
       $no_founders = $row['no_founders'];

@@ -70,7 +70,7 @@
               
               $s_name = array();
               foreach ($stmt2 as $row) {
-                $new_name="<a href='profile?p=".$row['s_id']."'>".$row['s_name']."</a>";
+                $new_name="<a href='../profile?p=".$row['s_id']."'>".$row['s_name']."</a>";
 
                 if (!(in_array($new_name, $s_name))) {
                   array_push($s_name, $new_name);
