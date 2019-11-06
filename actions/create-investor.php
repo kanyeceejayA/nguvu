@@ -21,9 +21,6 @@ else{
 	$description = (isset($_POST["description"])) ? test_input($_POST["description"]):NULL;
 
 
-	//Country details
-	$country_id = $_POST['country_id'];
-
 	if (($_FILES['logo']['size']>0)){
 		include 'upload-logo.php';
 		$logo = 'assets/img/logos/'.$filename;
@@ -39,19 +36,8 @@ else{
 		$message .= '<b>Success:</b> '.$name.' successfully saved with id No.: '.$pdo->lastInsertId().'!';
 		$inv_id = $pdo->lastInsertId();
 
-		$sql_c = "INSERT INTO `c_of_focus` (`c_id`, `inv_id`) VALUES (?, '".$inv_id."')";//c=countries
-		$stmt_c = $pdo->prepare($sql_c);
-
-		try {
-			foreach ($country_id as $c_id) {
-				echo $c_id;
-				$stmt_c->execute(array($c_id));
-			}
-		} catch (Exception $e) {
-			$error='Error saving extra details:.'.$e;
-		}
 	}else {
-		$error .= '<b>Error when adding a new member : </b>'.$pdo->error();
+		$error .= '<b>Error when adding a new investor : </b>'.$pdo->error();
 	}
 }
 

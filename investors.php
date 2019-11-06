@@ -40,7 +40,7 @@
                         <div class="col-md-2"><span>Logo</span></div>
                         <div class="col-md-4"><span>Company</span> <span>Location</span></div>
                         <div class="col-md-2"><span>Main Sector</span><span>Status</span></div>
-                        <div class="col-md-2"><span>Countries of <br>Operation</span></div>
+                        <div class="col-md-2"><span>Startups <br>Invested in</span></div>
                         <div class="col-md-2"><span>Links</span></div>
         </div>
 
@@ -62,12 +62,20 @@
               $facebook = $row['facebook'];
               $twitter = $row['twitter'];
               $linkedin = $row['linkedin'];
-              $stmt2 = $pdo->prepare('select GROUP_CONCAT(c.name) as countries from investors i join c_of_focus f on f.inv_id = i.inv_id JOIN countries c on c.country_id=f.c_id where f.inv_id=?');
+              
+              $stmt2 = $pdo->prepare('select * from funding_view where inv_id=?');
               $stmt2->execute(array($row['inv_id']));
+
+              $s_name = array();
               foreach ($stmt2 as $row) {
-                $countries = $row['countries'];
-                $countries = str_replace(',', ', ', $countries);
+                $new_name="<a href='profile?p=".$row['s_id']."'>".$row['s_name']."</a>";
+
+                if (!(in_array($new_name, $s_name))) {
+                  array_push($s_name, $new_name);
+                }
               }
+              $s_name = implode(', ', $s_name);
+
               echo "
                   <!-- $name card -->
                   <div class='card'>
@@ -88,8 +96,8 @@
                         <a class='badge badge-pill badge-success' href=''>$status</a>
                       </div>
                       <div class='col-md-2'>
-                        <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Countries of Operation</div>
-                        <span>$countries</span>
+                        <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Startups Invested in</div>
+                        <span>$s_name</span>
                       </div>
                       <div class='col-md-2'>
                         <span style='font-size:2em;'>

@@ -44,10 +44,6 @@ else{
 	$linkedin = (isset($_POST["linkedin"])) ? test_input($_POST["linkedin"]):$linkedin_old;
 	$description = (isset($_POST["description"])) ? test_input($_POST["description"]):$description_old;
 
-
-	//Country details
-	// $country_id = $_POST['country_id'];
-
 	//check if logo was changed
 	if (($_FILES['logo']['size']>0)){
 		include 'upload-logo.php';

@@ -54,30 +54,7 @@
               </div> <!-- form-group -->
             </div>
 
-            <div class="form-group bmd-form-group row">
-              <label for="type_id" class="col-sm-4">Countries of Operation:</label>
-              <select type="text" class="form-control col-sm-8" id="c_list" onchange="lister()">
-                <?php
-                  $stmt = $pdo->prepare('select country_id,name from countries;');
-                  $stmt->execute();
-                  foreach ($stmt as $row) {
-                    echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
-                  }
-                ?>
-              </select>
-              <select type="text" class="" name="country_id[]" id="c_values" multiple hidden>
-                <?php
-                  $stmt = $pdo->prepare('select country_id,name from countries;');
-                  $stmt->execute();
-                  foreach ($stmt as $row) {
-                    echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
-                  }
-                ?>
-              </select>
-              <br><br>
-              <span id="chosen" style="display:block;cursor: pointer;">Countries:&nbsp;</span>
-            </div> <!-- form-group -->
-
+          
 
           </div> <!-- About Company Col -->
 
@@ -131,38 +108,5 @@
       </form><!-- container/form -->
       <br>
   </main>
-
-
-      <script type="text/javascript">
-             
-              function lister(argument) {
-                chosen = document.getElementById('chosen');
-                c_list = document.getElementById('c_list');
-                c_values = document.getElementById('c_values');
-                chosen.innerHTML += ' <span id="'+c_list.selectedIndex+'" onclick="del('+c_list.selectedIndex+')" class="badge badge-pill badge-success country">X  '+c_list.options[c_list.selectedIndex].text+'</span>';
-
-                c_values.options[c_list.selectedIndex].selected= true;
-              }
-              function del(index) {
-                var elem = document.getElementById(index);
-                c_values = document.getElementById('c_values');
-                elem.parentNode.removeChild(elem);
-
-                c_values.options[index].selected= false;
-              }
-
-              function set_country_value(selectObj, txtObj) {
-                var letter = txtObj.value;
-               
-                for(var i = 0; i < selectObj.length; i++) {
-                  if(selectObj.options[i].value.charAt(0) == letter) {
-                    selectObj.options[i].selected = true;
-                  } else {
-                    selectObj.options[i].selected = false;
-                  }
-                }
-
-              }
-            </script>
 
 <?php include 'assets/footer.php'; ?>

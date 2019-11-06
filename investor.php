@@ -24,10 +24,6 @@
         $twitter = $row['twitter']; 
         $linkedin = $row['linkedin']; 
         $description = $row['description'];
-        $countries = $row['countries'];
-
-        //post processing
-        $countries = str_replace(',', ', ', $countries);
       }
       $page = $name;
       include 'assets/header.php'; ?>
@@ -61,10 +57,7 @@
       $twitter = $row['twitter']; 
       $linkedin = $row['linkedin']; 
       $description = $row['description'];
-      $countries = $row['countries'];
 
-      //post processing
-      $countries = str_replace(',', ', ', $countries);
     }
   ?>
   <?php
@@ -115,10 +108,7 @@
         <div class="col-sm-2">Sectors:</div>
         <div class="col-sm-8"><?php echo $sector;?></div>
       </div> <!-- row of values -->
-      <div class="row value">
-        <div class="col-sm-2">Countries:</div>
-        <div class="col-sm-8"><?php echo $countries;?></div>
-      </div> <!-- row of values -->
+      
       <div class="row value">
         <div class="col-sm-2">Funding Status:</div>
         <div class="col-sm-8"><span class="badge badge-pill badge-success"><?php echo $status;?></span></div>
