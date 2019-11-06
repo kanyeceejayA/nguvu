@@ -45,10 +45,10 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
       $no_founders = $row['no_founders'];
     }
     //fetch Countries
-    $stmt = $pdo->prepare("select count(f_name) no_founders from founders where s_id ='$s_id';");
+    $stmt = $pdo->prepare("select count(name) no_countries FROM c_of_operation co right join countries c on c_id = country_id;");
     $stmt->execute(array());
     foreach ($stmt as $row) {
-      $no_founders = $row['no_founders'];
+      $no_countries = $row['no_countries'];
     }
 
 ?>
@@ -152,14 +152,14 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                   }
                 ?>
               </select>
-              <select type="text" class="" name= "country_id[]" id="c_values" multiple hidden>
+              <select type="text" class="" name= "country_id[]" id="c_values" multiple>
                 <?php
                   $stmt = $pdo->prepare("select country_id,name FROM countries c join c_of_operation co on c.country_id = co.c_id where s_id = $s_id;");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."' selected>".$row['name']."</option>\n";
                   }
-                  $stmt = $pdo->prepare("select country_id,name, s_id FROM c_of_operation co right join countries c on c_id = country_id where s_id !=2 or s_id is NULL;");
+                  $stmt = $pdo->prepare("select country_id,name,s_id from countries c left join c_of_operation co on c_id=country_id where s_id !=".$s_id." or s_id is NULL order by name asc");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
@@ -167,7 +167,15 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                 ?>
               </select>
               <br><br>
-              <span id="chosen" style="display:block;cursor: pointer;">Countries:&nbsp;</span>
+              <span id="chosen" style="display:block;cursor: pointer;">Countries:&nbsp;
+                <?php
+                  $stmt = $pdo->prepare("select country_id,name FROM countries c join c_of_operation co on c.country_id = co.c_id where s_id = $s_id;");
+                  $stmt->execute();
+                  foreach ($stmt as $row) {
+                ?>
+                  <span id="<?php echo $row['country_id'];?>" onclick="del('<?php echo $row['country_id'];?>')" class="badge badge-pill badge-success country"><?php echo $row['name'] ?></span>
+                <?php } ?>
+              </span>
             </div> <!-- form-group -->
 
           </div> <!-- About Company Col -->
