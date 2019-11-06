@@ -18,4 +18,4 @@ $_SESSION['message']= '<div class="alert alert-success fade show">
 			        </div>
 			      </div>';
 //go to view startups page
-header('location:login');
+header('location:../funding');

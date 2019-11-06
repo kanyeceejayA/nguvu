@@ -1,7 +1,7 @@
 
   <footer class="footer footer-default">
     <div class="container">
-      <div class="copyright float-left"><a href="../">Ordinary View</a> </div>
+      <div class="copyright float-left"><a href="logout">Log Out</a> </div>
       <div class="copyright float-right">
         &copy;
         <script>

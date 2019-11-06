@@ -1,2 +1,2 @@
 <?php 
-header("location:list_startups");
+header("location:list_funding");

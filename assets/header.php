@@ -37,19 +37,14 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
+
           <li class="dropdown nav-item">
-            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">post_add</i> Add Company
+            <a href="funding" class="nav-link">
+              <i class="material-icons">done_all</i> Funding
             </a>
-            <div class="dropdown-menu dropdown-with-icons">
-              <a href="add_startup" class="dropdown-item">
-                <i class="material-icons">post_add</i>Add Startup
-              </a>
-              <a href="add_investor" class="dropdown-item">
-                <i class="material-icons">post_add</i> Add Investor
-              </a>
-            </div>
-          </li>
+          </li> 
+
+          
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">apartment</i> View Companies
@@ -66,18 +61,48 @@
 
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">done_all</i> Funding
+              <i class="material-icons">post_add</i> Insert
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <a href="funding" class="dropdown-item">
-                <i class="material-icons">done_all</i>View Funding
+              <a href="add_startup" class="dropdown-item">
+                <i class="material-icons">post_add</i>Add Startup
+              </a>
+              <a href="add_investor" class="dropdown-item">
+                <i class="material-icons">post_add</i> Add Investor
               </a>
               <a href="add_funding" class="dropdown-item">
-                <i class="material-icons">post_add</i>Add Deal
+                <i class="material-icons">post_add</i>Add Funding
               </a>
             </div>
+          </li>
+
+          <?php if(!isset($_SESSION['username'])){ ?>
+            <li class="dropdown nav-item">
+            <a href="admin/login" class="nav-link">
+              <i class="material-icons">person</i> Log In
+            </a>
           </li> 
+        <?php } ?>
+
           <?php if(isset($_SESSION['username'])){ ?>
+
+            <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">edit</i> Edit
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="admin/list_startups" class="dropdown-item">
+                <i class="material-icons">edit</i>Edit Startup
+              </a>
+              <a href="admin/list_investors" class="dropdown-item">
+                <i class="material-icons">edit</i> Edit Investor
+              </a>
+              <a href="admin/list_funding" class="dropdown-item">
+                <i class="material-icons">edit</i> Edit Funding
+              </a>
+            </div>
+          </li>
+
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <i class="material-icons">person</i> <?php echo $_SESSION['username'];?>

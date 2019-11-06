@@ -6,7 +6,7 @@
               Logged In as <?php echo $_SESSION['username'];?>. <a href="admin/logout">Logout</a>
       <?php } ?>
       <?php if(!isset($_SESSION['username'])){ ?>
-          <a href="admin/index">Admin</a>
+          <a href="admin/index">Log In</a>
       <?php } ?>
       </div>
       <div class="copyright float-right">

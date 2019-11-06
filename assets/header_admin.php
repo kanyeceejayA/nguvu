@@ -36,8 +36,29 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
           <li class="dropdown nav-item">
+            <a href="../funding" class="nav-link">
+              <i class="material-icons">done_all</i> Funding
+            </a>
+          </li> 
+
+          
+          <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">post_add</i> Add Entity
+              <i class="material-icons">apartment</i> View Companies
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <a href="../startups" class="dropdown-item">
+                <i class="material-icons">file_copy</i>View Startups
+              </a>
+              <a href="../investors" class="dropdown-item">
+                <i class="material-icons">apartment</i> View Investors
+              </a>
+            </div>
+          </li>
+
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">post_add</i> Insert
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="../add_startup" class="dropdown-item">
@@ -47,13 +68,14 @@
                 <i class="material-icons">post_add</i> Add Investor
               </a>
               <a href="../add_funding" class="dropdown-item">
-                <i class="material-icons">post_add</i> Add Funding
+                <i class="material-icons">post_add</i>Add Funding
               </a>
             </div>
           </li>
+
            <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">edit</i> Edit Entity
+              <i class="material-icons">edit</i> Edit
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="list_startups" class="dropdown-item">
@@ -77,7 +99,7 @@
               <i class="material-icons">remove_red_eye</i> Ordinary View
             </a>
               <a href="logout" class="dropdown-item">
-                <i class='fa fa-external-link' >launch</i>&nbsp;Logout
+                <i class='material-icons' >launch</i>&nbsp;Logout
               </a>
             </div>
           </li>
