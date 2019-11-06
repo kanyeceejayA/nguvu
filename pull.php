@@ -12,7 +12,15 @@ if (isEnabled('shell_exec')) {
     shell_exec('echo "enabled"');
     echo "it works, from echo functions";
 }else{
-	echo 'its not enabled';
+	echo 'its not enabled<br><br> >>>>>>>>>>>>';
+}
+
+if(is_callable($func)){
+	echo "it's not callable";
+elseif(false === stripos(ini_get('disable_functions'), $func)){
+	echo "It is disabled";
+}else{
+	echo "idk wtf is happening";
 }
 
 ?>
