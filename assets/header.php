@@ -83,11 +83,11 @@
                   <i class="material-icons">person</i> <?php echo $_SESSION['username'];?>
                 </a>
                 <div class="dropdown-menu dropdown-with-icons">
-                  <a href="startups" class="dropdown-item">
-                  <i class="material-icons">apartment</i> View Companies
+                  <a href="admin/index" class="dropdown-item">
+                  <i class="material-icons">build</i> Admin View
                 </a>
                   <a href="admin/logout" class="dropdown-item">
-                    <i class='fa fa-external-link' ></i> Logout
+                    <i class="material-icons">launch</i> Logout
                   </a>
                 </div>
               </li>

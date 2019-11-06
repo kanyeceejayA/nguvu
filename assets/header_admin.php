@@ -74,10 +74,10 @@
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="../" class="dropdown-item">
-              <i class="material-icons">apartment</i> View Companies
+              <i class="material-icons">remove_red_eye</i> Ordinary View
             </a>
               <a href="logout" class="dropdown-item">
-                <i class='fa fa-external-link' ></i> Logout
+                <i class='fa fa-external-link' >launch</i>&nbsp;Logout
               </a>
             </div>
           </li>
