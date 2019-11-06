@@ -65,15 +65,7 @@
               $f_year = $row['f_year'];
               
               //handle money
-              $funding =$row['funding'];
-              if ($funding=='0'){
-                $funding = 'Undisclosed Amount';
-              }else{
-                $fmt2 = new NumberFormatter( 'UG', NumberFormatter::DECIMAL );
-                $fmt2->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 0);
-                $funding = $fmt2->formatCurrency(($funding),"USD");
-                $funding = 'US $'.$funding;
-              }
+              $funding =format_money($row['funding']);
 
               $status = $row['status'];
               $website = $row['website'];
