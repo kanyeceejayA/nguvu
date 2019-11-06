@@ -47,7 +47,7 @@ function logo_check($logo='')
 
 function format_money($amount='0')
 {
-  if ($amount=='0'){
+  if ($amount=='0' || $amount==0 || is_null($amount)){
     $amount = 'Undisclosed';
   }else{
     $fmt2 = new NumberFormatter( 'UG', NumberFormatter::DECIMAL );
