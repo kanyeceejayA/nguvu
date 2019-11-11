@@ -122,6 +122,14 @@
       <div class="card-body">
 
         <p><span class="title">Recent Investments:</span><?php echo $s_name;?></p>
+        <span class="title">Social Links:</span>
+          <span style='font-size:1em;'>
+              <a href='<?php echo $facebook;?>' target='_blank' rel='noopener'><i class='fa fa-facebook'></i>&nbsp;Facebook</a><br>
+              <a href='<?php echo $twitter;?>' target='_blank' rel='noopener'><i class='fa fa-twitter'></i>&nbsp;Twitter</a><br>
+              <a href='<?php echo $linkedin;?>' target='_blank' rel='noopener'><i class='fa fa-linkedin'></i>&nbsp;LinkedIn</a><br>
+              <a href='<?php echo $website;?>' target='_blank' rel='noopener'><i class='fa fa-globe'></i>&nbsp;Website</a><br>
+              
+            </span>
 
         </div>
       </div>
