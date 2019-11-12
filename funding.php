@@ -18,10 +18,12 @@
   <!-- main Body content -->
   <main class="main">
     <div class="container">
+      <div class="row">
         <br>
         <h2>Recent Funding</h2>
-       
-        <div class="form-inline ml-auto" onsubmit="js_search()">
+      </div>
+      <div class="row">
+        <div class="form-inline mr-auto col-md-6" onsubmit="js_search()">
           <div class="form-group bmd-form-group ">
             <label for="fast_search" class="bmd-label-floating">Field Search</label>
             <input type="text" id="fast_search" class="form-control" onkeyup="js_search()">
@@ -34,7 +36,22 @@
             </label>
           </div>
         </div>
-          <br>
+        <form class="form-inline col-md-6" action="" method="POST">
+          <div class="form-group bmd-form-group">
+            <label for="f_year" class="">From</label>
+            <input type="text" class="form-control datetimepicker" name="from" id="from" onclick="reset_view()">
+          </div> <!-- form-group -->
+          &nbsp;&nbsp;&nbsp;
+          <div class="form-group bmd-form-group">
+            <label for="f_year" class="">To</label>
+            <input type="text" class="form-control datetimepicker" name="to" id="to" onclick="reset_view()">
+          </div> <!-- form-group -->
+          <button class="btn btn-primary btn-round">
+                <i class="material-icons">search</i> Filter
+              <div class="ripple-container"></div></button>
+        </form>
+      </div>
+        <br>
 
         <!-- Heading -->
         <div class="row header  d-none d-lg-flex d-md-flex">
@@ -48,7 +65,22 @@
         <div id="cardholder">
           <?php //return results
             
-            $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id order by d_date desc');
+            
+
+            if(!isset($_POST['from']) || !isset($_POST['to']) || $_POST['from'] == '' ||$_POST['to'] == ''){
+              $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id order by d_date desc');
+            }else{
+              $from = (isset($_POST['from']))? test_input($_POST['from']) : '1900-1-1';
+              $from = date("Y-m-d", strtotime($from));
+
+              $to = (isset($_POST['to']))? test_input($_POST['to']) : '2052-1-1';
+              $to = date("Y-m-d", strtotime($to));
+              $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where d_date >= "'.$from.'" and d_date <= "'.$to.'"order by d_date desc');
+            }
+
+
+
+
             $stmt->execute();
             foreach ($stmt as $row) {
               $d_id =$row['d_id'];
@@ -150,3 +182,27 @@
 
 </script>
 <?php include "assets/footer.php";?>
+<script src="assets/js/plugins/moment.min.js" type="text/javascript"></script>
+<script src="assets/js/plugins/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      //init DateTimePickers
+      materialKit.initFormExtendedDatetimepickers();
+
+      $('#from').data("DateTimePicker").format('D-MMM-Y');
+
+       // $("#from").val( moment().format('D-MMM-Y') );
+
+       $('#to').data("DateTimePicker").format('D-MMM-Y');
+
+       // $("#to").val( moment().format('YYYY') );
+
+    });
+
+  function reset_view(){
+
+  // $('#from').data("DateTimePicker").viewMode('days');
+  
+  // $('#to').data("DateTimePicker").viewMode('years'); 
+  }
+</script>
