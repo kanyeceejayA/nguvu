@@ -74,7 +74,7 @@
               }
               
               $round = $row['round'];
-              $date = $row['d_date'];
+              $date = date_format(date_create($row['d_date']), 'd M Y');
               $source = $row['source'];
 
               echo "

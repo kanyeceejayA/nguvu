@@ -172,7 +172,7 @@
                 
 
                 $round = $row['round'];
-                $date = $row['d_date'];
+                $date = date_format(date_create($row['d_date']), 'd M Y');
                 $source = $row['source'];
 
                 echo "
@@ -222,7 +222,7 @@
       <div class="container ml-auto mr-auto">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
-              <div class="col-md-9"><span>New Story</span></div>
+              <div class="col-md-9"><span>News Story</span></div>
               <div class="col-md-3"><span>Date</span></div>
           </div>
 
@@ -231,8 +231,7 @@
               
               foreach ($stmt as $row) {
                 $post_date = $row['post_date'];
-                $post_date = date_create($post_date);
-                $post_date = date_format($post_date, 'd M Y');
+                $post_date = date_format(date_create($post_date), 'd M Y');
                 $post_title = $row['post_title'];
                 $link = $row['guid'];
                 
