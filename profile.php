@@ -85,56 +85,197 @@
               <a href='admin/edit_startup?p=<?php echo $s_id;?>'><i class='fa fa-edit'></i>&nbsp;Edit Startup</a><br>
             <?php } ?>
         </div>
-      </div> <!-- row -->
+      </div> <!-- logo and name -->
 
       <div class="row">
         <div class="col-sm-9">
-      <div class="row value">
-        <div class="col-sm-2">Categories:</div>
-        <div class="col-sm-8"><?php echo $type.', '.$type2;?></div>
-      </div> <!-- row of values -->
-      <div class="row value">
-        <div class="col-sm-2">Founded:</div>
-        <div class="col-sm-8"><?php echo $f_year;?></div>
-      </div> <!-- row of values -->
-      <div class="row value">
-        <div class="col-sm-2">Founders:</div>
-        <div class="col-sm-8"><?php echo $founders;?></div>
-      </div> <!-- row of values -->
-      <div class="row value">
-        <div class="col-sm-2">Countries:</div>
-        <div class="col-sm-8"><?php echo $countries;?></div>
-      </div> <!-- row of values -->
-      <div class="row value">
-        <div class="col-sm-2">Funding Status:</div>
-        <div class="col-sm-8"><span class="badge badge-pill badge-success"><?php echo $status;?></span></div>
-      </div> <!-- row of values -->
-      <div class="row value">
-        <div class="col-sm-2">Employees:</div>
-        <div class="col-sm-8"><?php echo $employees;?></div>
-      </div> <!-- row of values -->
-        <h4><strong>Description</strong></h4>
-      <div class="row">
-        <h4 class="col"><?php echo $description; ?></h4>
-      </div>
-    </div>
-    <div class="card col-sm-3">
-      <div class="card-body">
-        <p><span class="title">Recent Investors:<span class="small" style="color:#9c27b0;"><?php echo $inv_name;?></span></span></p>
-        <span class="title">Links:</span>
-          <span style='font-size:1em;'>
-              <a href='<?php echo $facebook;?>' target='_blank' rel='noopener'><i class='fa fa-facebook'></i>&nbsp;Facebook</a><br>
-              <a href='<?php echo $twitter;?>' target='_blank' rel='noopener'><i class='fa fa-twitter'></i>&nbsp;Twitter</a><br>
-              <a href='<?php echo $linkedin;?>' target='_blank' rel='noopener'><i class='fa fa-linkedin'></i>&nbsp;LinkedIn</a><br>
-              <a href='<?php echo $website;?>' target='_blank' rel='noopener'><i class='fa fa-globe'></i>&nbsp;Website</a><br>
-              
-            </span>
-        </div>
-      </div>
 
-      </div>
+            <div class="row value">
+              <div class="col-sm-2">Categories:</div>
+              <div class="col-sm-8"><?php echo $type.', '.$type2;?></div>
+            </div> <!-- row of categories -->            <div class="row value">
+              <div class="col-sm-2">Founded:</div>
+              <div class="col-sm-8"><?php echo $f_year;?></div>
+            </div> <!-- row of founded -->
+            <div class="row value">
+              <div class="col-sm-2">Founders:</div>
+              <div class="col-sm-8"><?php echo $founders;?></div>
+            </div> <!-- row of founders -->
+            <div class="row value">
+              <div class="col-sm-2">Countries:</div>
+              <div class="col-sm-8"><?php echo $countries;?></div>
+            </div> <!-- row of countries -->
+            <div class="row value">
+              <div class="col-sm-2">Funding Status:</div>
+              <div class="col-sm-8"><span class="badge badge-pill badge-success"><?php echo $status;?></span></div>
+            </div> <!-- row of funding status -->
+            <div class="row value">
+              <div class="col-sm-2">Employees:</div>
+              <div class="col-sm-8"><?php echo $employees;?></div>
+            </div> <!-- row of employees -->
+              <h4><strong>Description</strong></h4>
+            <div class="row">
+              <h4 class="col"><?php echo $description; ?></h4>
+            </div> <!-- description -->
+        </div> <!-- left column - sm-9 -->
 
-      <style type="text/css">
+        <div class="card col-sm-3">
+          <div class="card-body">
+            <p><span class="title">Recent Investors:<span class="small" style="color:#9c27b0;"><?php echo $inv_name;?></span></span></p>
+            <span class="title">Links:</span>
+              <span style='font-size:1em;'>
+                  <a href='<?php echo $facebook;?>' target='_blank' rel='noopener'><i class='fa fa-facebook'></i>&nbsp;Facebook</a><br>
+                  <a href='<?php echo $twitter;?>' target='_blank' rel='noopener'><i class='fa fa-twitter'></i>&nbsp;Twitter</a><br>
+                  <a href='<?php echo $linkedin;?>' target='_blank' rel='noopener'><i class='fa fa-linkedin'></i>&nbsp;LinkedIn</a><br>
+                  <a href='<?php echo $website;?>' target='_blank' rel='noopener'><i class='fa fa-globe'></i>&nbsp;Website</a><br>
+                  
+              </span>
+          </div>
+        </div>  <!-- side card -->
+
+      </div> <!-- Main Content details and side card -->
+
+      <br>
+      <h4 class="title" style="text-align: center;">Recent Funding for <?php echo $name; ?></h4>
+      <div class="container ml-auto mr-auto">
+          <br><!-- Heading -->
+          <div class="row header  d-none d-lg-flex d-md-flex">
+              <div class="col-md-2"><span>Logo</span></div>
+              <div class="col-md-4"><span>Investor</span></div>
+              <div class="col-md-4"><span>Amount / Round</span></div>
+              <div class="col-md-2"><span>Date / Source</span></div>
+          </div>
+
+          <div id="cardholder">
+            <?php //return results
+              $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
+                $stmt = $pdo->prepare($query);
+
+              $stmt->execute();
+              foreach ($stmt as $row) {
+                $d_id =$row['d_id'];
+                $logo = logo_check($row['logo']);
+                $name = $row['name'];
+                $location = $row['location'];
+                $i_name = $row['i_name'];
+                $inv_id = $row['inv_id'];
+                $s_id = $row['s_id'];
+                $i_location = $row['i_location'];
+                
+                //handle money
+                $amount =format_money($row['amount']);
+                
+
+                $round = $row['round'];
+                $date = $row['d_date'];
+                $source = $row['source'];
+
+                echo "
+                    <!-- $name card -->
+                    <div class='card'>
+                      <div class='row' style='padding:1.5em 0 1.5em 1em'>
+                        <div class='col-md-2'>
+                          <img src='$logo' class='row-logo'>
+                        </div>
+                        <div class='col-md-4'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
+                          <a href='investor?p=$inv_id'>
+                            <strong style='font-size:1.5em;'>$i_name</strong>
+                          </a>
+                          <span>$i_location</span>
+                        </div>
+                        <div class='col-md-3'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
+                          <span>$amount</span>
+                          <a class='badge badge-pill badge-success' href=''>$round</a>
+                        </div>
+                        <div class='col-md-3'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date/Source</div>
+                          <span>$date</span>
+                            <span><a href='$source' target='_blank' rel='noopener'><i class='fa fa-external-link' ></i> Source&nbsp;</a></span>
+                        </div>
+                      </div>
+                    </div><!-- card -->
+                  ";
+              }
+            ?>
+          </div> <!-- cardholder -->
+          <br>
+      </div> <!-- Funding details -->
+
+
+      <h4 class="title" style="text-align: center;">Recent News regarding <?php echo $name; ?></h4>
+      <div class="container ml-auto mr-auto">
+          <br><!-- Heading -->
+          <div class="row header  d-none d-lg-flex d-md-flex">
+              <div class="col-md-2"><span>Logo</span></div>
+              <div class="col-md-4"><span>Investor</span></div>
+              <div class="col-md-4"><span>Amount / Round</span></div>
+              <div class="col-md-2"><span>Date / Source</span></div>
+          </div>
+
+          <div id="cardholder">
+            <?php //return results
+              $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
+                $stmt = $pdo->prepare($query);
+
+              $stmt->execute();
+              foreach ($stmt as $row) {
+                $d_id =$row['d_id'];
+                $logo = logo_check($row['logo']);
+                $name = $row['name'];
+                $location = $row['location'];
+                $i_name = $row['i_name'];
+                $inv_id = $row['inv_id'];
+                $s_id = $row['s_id'];
+                $i_location = $row['i_location'];
+                
+                //handle money
+                $amount =format_money($row['amount']);
+                
+
+                $round = $row['round'];
+                $date = $row['d_date'];
+                $source = $row['source'];
+
+                echo "
+                    <!-- $name card -->
+                    <div class='card'>
+                      <div class='row' style='padding:1.5em 0 1.5em 1em'>
+                        <div class='col-md-2'>
+                          <img src='$logo' class='row-logo'>
+                        </div>
+                        <div class='col-md-4'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
+                          <a href='investor?p=$inv_id'>
+                            <strong style='font-size:1.5em;'>$i_name</strong>
+                          </a>
+                          <span>$i_location</span>
+                        </div>
+                        <div class='col-md-3'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
+                          <span>$amount</span>
+                          <a class='badge badge-pill badge-success' href=''>$round</a>
+                        </div>
+                        <div class='col-md-3'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date/Source</div>
+                          <span>$date</span>
+                            <span><a href='$source' target='_blank' rel='noopener'><i class='fa fa-external-link' ></i> Source&nbsp;</a></span>
+                        </div>
+                      </div>
+                    </div><!-- card -->
+                  ";
+              }
+            ?>
+          </div> <!-- cardholder -->
+          <br>
+      </div> <!-- Funding details -->
+
+
+
+  </div>
+  </main>
+<style type="text/css">
         .value{
           padding-bottom: 1em;
         }
@@ -151,9 +292,4 @@
             color: #9c27b0;
         }
       </style>
-      
-    </div> <!-- container -->
-    <br>
-  </main>
-
 <?php include 'assets/footer.php'; ?>
