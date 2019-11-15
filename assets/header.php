@@ -78,7 +78,7 @@
 
           <?php if(!isset($_SESSION['username'])){ ?>
             <li class="dropdown nav-item">
-            <a href="admin/login" class="nav-link">
+            <a href='admin/login?p=<?php echo $_SERVER["REQUEST_URI"];?>' class="nav-link">
               <i class="material-icons">person</i> Log In
             </a>
           </li> 
@@ -111,7 +111,7 @@
                   <a href="admin/index" class="dropdown-item">
                   <i class="material-icons">build</i> Admin View
                 </a>
-                  <a href="admin/logout" class="dropdown-item">
+                  <a href="admin/logout?p=<?php echo $_SERVER["REQUEST_URI"];?>" class="dropdown-item">
                     <i class="material-icons">launch</i> Logout
                   </a>
                 </div>

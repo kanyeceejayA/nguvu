@@ -17,5 +17,11 @@ $_SESSION['message']= '<div class="alert alert-success fade show">
 			          Sussessfully logged out
 			        </div>
 			      </div>';
-//go to view startups page
-header('location:../funding');
+//go to view startups
+
+$location = '../funding';
+
+if(isset($_GET['p'])){
+  $location =$_GET['p'];
+}
+header('location:'.$location);

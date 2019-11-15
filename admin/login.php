@@ -16,12 +16,14 @@
 
       // If result matched $myemail and $mypassword, table row must be 1 row
       if($count == 1) {
-         
+        $location = 'list_startups';
+
+        if(isset($_GET['p'])){
+          $location =$_GET['p'];
+        }
         $_SESSION['username'] = $username;
         $error = NULL;
-        header("location: list_startups");
-
-
+        header("location: ".$location);
       }else {
          $error = "Your Login Name or Password is invalid";
       }

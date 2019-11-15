@@ -1,6 +1,41 @@
 <?php include 'actions/db_connection.php';
       $page='Funding';
-      include 'assets/header.php';?>
+      include 'assets/header.php';
+
+      error_reporting(0);
+      function date_check($date){
+        $date = (isset($date))? test_input($date) : '';
+        $date = ($date!='') ?  date("Y-m-d", strtotime($date)): '' ;
+        return $date;
+      }
+
+      $from = date_check($_GET['from']);
+      $to = date_check($_GET['to']);
+
+      $query = 'SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id ';
+
+      if ($to!='' && $from !='') {
+        $query .='where d_date >= "'.$from.'" and d_date <= "'.$to.'" order by d_date desc';
+      }
+      elseif ($to !='' && $from =='') {
+        $query .='where d_date <= "'.$to.'" order by d_date desc';
+      }
+      elseif ($to=='' && $from !='') {
+        $query .='where d_date >= "'.$from.'" order by d_date desc';
+      }
+      else{
+        $query .="order by d_date desc";
+      }
+
+      $stmt = $pdo->prepare($query);
+
+      //prepare the values for printing on page
+      $to = (isset($_GET['to']))? test_input($_GET['to']) : NULL;
+      
+      $from = (isset($_GET['from']))? test_input($_GET['from']) : NULL; 
+
+
+              ?>
 <!-- banner -->
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('assets/img/profile_city.jpg');text-align:center;">
     <div class="container">
@@ -36,19 +71,24 @@
             </label>
           </div>
         </div>
-        <form class="form-inline col-md-6" action="" method="POST">
+        <form class="form-inline col-md-6" action="" method="GET">
           <div class="form-group bmd-form-group">
             <label for="f_year" class="">From</label>
-            <input type="text" class="form-control datetimepicker" name="from" id="from" onclick="reset_view()">
+            <input type="text" class="form-control datetimepicker" name="from" id="from" onclick="reset_view()" <?php if($from !=''){ echo 'value=$from';} ?>>
           </div> <!-- form-group -->
           &nbsp;&nbsp;&nbsp;
           <div class="form-group bmd-form-group">
             <label for="f_year" class="">To</label>
-            <input type="text" class="form-control datetimepicker" name="to" id="to" onclick="reset_view()">
+            <input type="text" class="form-control datetimepicker" name="to" id="to" onclick="reset_view()" <?php if($to !=''){ echo 'value=$to';} ?>>
           </div> <!-- form-group -->
-          <button class="btn btn-primary btn-round">
-                <i class="material-icons">search</i> Filter
-              <div class="ripple-container"></div></button>
+          <button class="btn btn-primary btn-round btn-sm">
+            <i class="material-icons">search</i> Filter
+          <div class="ripple-container"></div></button>
+          <a href="funding">
+            <button class="btn btn-danger btn-round btn-fab btn-sm" value="clear" type="button">
+              <i class="material-icons">delete_outline</i>
+            <div class="ripple-container"></div></button>
+          </a>
         </form>
       </div>
         <br>
@@ -64,22 +104,6 @@
 
         <div id="cardholder">
           <?php //return results
-            
-            
-
-            if(!isset($_POST['from']) || !isset($_POST['to']) || $_POST['from'] == '' ||$_POST['to'] == ''){
-              $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id order by d_date desc');
-            }else{
-              $from = (isset($_POST['from']))? test_input($_POST['from']) : '1900-1-1';
-              $from = date("Y-m-d", strtotime($from));
-
-              $to = (isset($_POST['to']))? test_input($_POST['to']) : '2052-1-1';
-              $to = date("Y-m-d", strtotime($to));
-              $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where d_date >= "'.$from.'" and d_date <= "'.$to.'"order by d_date desc');
-            }
-
-
-
 
             $stmt->execute();
             foreach ($stmt as $row) {
@@ -191,11 +215,19 @@
 
       $('#from').data("DateTimePicker").format('D-MMM-Y');
 
-       // $("#from").val( moment().format('D-MMM-Y') );
+      <?php if($from != ''){ ?>
+
+       $("#from").val( moment('<?php echo $from ;?>').format('D-MMM-Y') );
+
+       <?php } ?>
 
        $('#to').data("DateTimePicker").format('D-MMM-Y');
 
-       // $("#to").val( moment().format('YYYY') );
+       <?php if($to !=''){ ?>
+
+       $("#to").val( moment('<?php echo $to ;?>').format('D-MMM-Y') );
+
+     <?php } ?>
 
     });
 
