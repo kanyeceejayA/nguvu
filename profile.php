@@ -136,6 +136,14 @@
       </div> <!-- Main Content details and side card -->
 
       <br>
+      <?php 
+        $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
+                $stmt = $pdo->prepare($query);
+
+              $stmt->execute();
+
+              if($stmt->rowCount()>1){
+        ?>
       <h4 class="title" style="text-align: center;">Recent Funding for <?php echo $name; ?></h4>
       <div class="container ml-auto mr-auto">
           <br><!-- Heading -->
@@ -148,10 +156,7 @@
 
           <div id="cardholder">
             <?php //return results
-              $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
-                $stmt = $pdo->prepare($query);
-
-              $stmt->execute();
+              
               foreach ($stmt as $row) {
                 $d_id =$row['d_id'];
                 $logo = logo_check($row['logo']);
@@ -204,13 +209,12 @@
       </div> <!-- Funding details -->
 
       <?php
+        }
+        $query = "select post_date,post_title,guid FROM wp_posts where (upper(post_title) LIKE '%".$name."%' or upper(post_content) LIKE upper('%".$name."%')) and post_type like '%post' and post_status = 'publish' order by post_date desc";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
 
-      $query = "select post_date,post_title,guid FROM wp_posts where (upper(post_title) LIKE '%".$name."%' or upper(post_content) LIKE upper('%".$name."%')) and post_status = 'publish' order by post_date desc";
-                $stmt = $pdo->prepare($query);
-
-              $stmt->execute();
-
-              if($stmt->rowCount()>=1){
+        if($stmt->rowCount()>=1){
 
       ?>
 
@@ -218,9 +222,8 @@
       <div class="container ml-auto mr-auto">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
-              <div class="col-md-6"><span>New Story</span></div>
+              <div class="col-md-9"><span>New Story</span></div>
               <div class="col-md-3"><span>Date</span></div>
-              <div class="col-md-3"><span>Link</span></div>
           </div>
 
           <div id="cardholder" class="news">
@@ -235,27 +238,24 @@
                 
                 echo "
                     <!-- $name card -->
-                    <div class='card'>
+                    <a class='card' href='$link' target='_blank' rel='noopener'>
                       <div class='row' style='padding:1.5em 0 1.5em 1em'>
                         
-                        <div class='col-md-6'>
-                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'></div>
-                          <a href='$link' target='_blank' rel='noopener'>
-                            <strong style=''>$post_title</strong>
-                          </a>
+                        <div class='col-md-9'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>title</div>
+                          <div>
+                            <strong style=''>$post_title <i class='fa fa-external-link' ></i></strong>
+                          </div>
                         </div>
 
                         <div class='col-md-3'>
-                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date</div>
                           <span>$post_date</span>
                         </div>
 
-                        <div class='col-md-3'>
-                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date/Source</div>
-                            <span><a href='$link' target='_blank' rel='noopener'> $link&nbsp;<i class='fa fa-external-link' ></i></a></span>
-                        </div>
+                        
                       </div>
-                    </div><!-- card -->
+                    </a> <!-- card -->
                   ";
               }
             ?>
