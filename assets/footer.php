@@ -3,7 +3,7 @@
     <div class="container">
       <div class=" copyright float-left">
       <?php if(isset($_SESSION['username'])){ ?>
-              Logged In as <?php echo $_SESSION['username'];?>. <a href="admin/logout">Logout</a>
+              Logged In as <?php echo $_SESSION['username'];?>. <a href="admin/logout?p=<?php echo $_SERVER["REQUEST_URI"];?>">Logout</a>
       <?php } ?>
       <?php if(!isset($_SESSION['username'])){ ?>
           <a href="admin/index">Log In</a>
