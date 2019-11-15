@@ -67,11 +67,22 @@
               $stmt2->execute(array($row['inv_id']));
 
               $s_name = array();
+              $i = 0;
               foreach ($stmt2 as $row) {
+                
                 $new_name="<a href='profile?p=".$row['s_id']."'>".$row['s_name']."</a>";
-
-                if (!(in_array($new_name, $s_name))) {
-                  array_push($s_name, $new_name);
+                
+                if($i<=5){
+                  if (!(in_array($new_name, $s_name))) {
+                    array_push($s_name, $new_name);
+                  }
+                  $i+=1;
+                }
+                if($i==6){
+                  if (!(in_array($new_name, $s_name))) {
+                    array_push($s_name, '...');
+                  }
+                  $i +=1;
                 }
               }
               $s_name = implode(', ', $s_name);
