@@ -203,64 +203,56 @@
           <br>
       </div> <!-- Funding details -->
 
+      <?php
 
-      <h4 class="title" style="text-align: center;">Recent News regarding <?php echo $name; ?></h4>
-      <div class="container ml-auto mr-auto">
-          <br><!-- Heading -->
-          <div class="row header  d-none d-lg-flex d-md-flex">
-              <div class="col-md-2"><span>Logo</span></div>
-              <div class="col-md-4"><span>Investor</span></div>
-              <div class="col-md-4"><span>Amount / Round</span></div>
-              <div class="col-md-2"><span>Date / Source</span></div>
-          </div>
-
-          <div id="cardholder">
-            <?php //return results
-              $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
+      $query = "select post_date,post_title,guid FROM wp_posts where (upper(post_title) LIKE '%".$name."%' or upper(post_content) LIKE upper('%".$name."%')) and post_status = 'publish' order by post_date desc";
                 $stmt = $pdo->prepare($query);
 
               $stmt->execute();
+
+              if($stmt->rowCount()>=1){
+
+      ?>
+
+      <h4 class="title" style="text-align: center;"><?php echo $name; ?> in the News</h4>
+      <div class="container ml-auto mr-auto">
+          <br><!-- Heading -->
+          <div class="row header  d-none d-lg-flex d-md-flex">
+              <div class="col-md-6"><span>New Story</span></div>
+              <div class="col-md-3"><span>Date</span></div>
+              <div class="col-md-3"><span>Link</span></div>
+          </div>
+
+          <div id="cardholder" class="news">
+            <?php //return results
+              
               foreach ($stmt as $row) {
-                $d_id =$row['d_id'];
-                $logo = logo_check($row['logo']);
-                $name = $row['name'];
-                $location = $row['location'];
-                $i_name = $row['i_name'];
-                $inv_id = $row['inv_id'];
-                $s_id = $row['s_id'];
-                $i_location = $row['i_location'];
+                $post_date = $row['post_date'];
+                $post_date = date_create($post_date);
+                $post_date = date_format($post_date, 'd M Y');
+                $post_title = $row['post_title'];
+                $link = $row['guid'];
                 
-                //handle money
-                $amount =format_money($row['amount']);
-                
-
-                $round = $row['round'];
-                $date = $row['d_date'];
-                $source = $row['source'];
-
                 echo "
                     <!-- $name card -->
                     <div class='card'>
                       <div class='row' style='padding:1.5em 0 1.5em 1em'>
-                        <div class='col-md-2'>
-                          <img src='$logo' class='row-logo'>
-                        </div>
-                        <div class='col-md-4'>
-                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
-                          <a href='investor?p=$inv_id'>
-                            <strong style='font-size:1.5em;'>$i_name</strong>
+                        
+                        <div class='col-md-6'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'></div>
+                          <a href='$link' target='_blank' rel='noopener'>
+                            <strong style=''>$post_title</strong>
                           </a>
-                          <span>$i_location</span>
                         </div>
+
                         <div class='col-md-3'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
-                          <span>$amount</span>
-                          <a class='badge badge-pill badge-success' href=''>$round</a>
+                          <span>$post_date</span>
                         </div>
+
                         <div class='col-md-3'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date/Source</div>
-                          <span>$date</span>
-                            <span><a href='$source' target='_blank' rel='noopener'><i class='fa fa-external-link' ></i> Source&nbsp;</a></span>
+                            <span><a href='$link' target='_blank' rel='noopener'> $link&nbsp;<i class='fa fa-external-link' ></i></a></span>
                         </div>
                       </div>
                     </div><!-- card -->
@@ -269,9 +261,9 @@
             ?>
           </div> <!-- cardholder -->
           <br>
-      </div> <!-- Funding details -->
+      </div> <!-- NEws Stories -->
 
-
+    <?php } ?>
 
   </div>
   </main>
@@ -291,5 +283,7 @@
             font-size: 1.2em;
             color: #9c27b0;
         }
-      </style>
+</style>
+<script>
+</script>
 <?php include 'assets/footer.php'; ?>
