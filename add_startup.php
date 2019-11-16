@@ -1,6 +1,6 @@
 <?php include 'actions/db_connection.php';
       $page='Register Startup';
-      include 'assets/header.php'; ?>
+      include 'assets/header.php'; session_start(); ?>
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('assets/img/bg.jpg');">
     <div class="container">
       <div class="row">

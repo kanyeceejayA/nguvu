@@ -1,6 +1,6 @@
 <?php include 'actions/db_connection.php';
       $page='Funding';
-      include 'assets/header.php';
+      include 'assets/header.php'; session_start();
 
       error_reporting(0);
       function date_check($date){
