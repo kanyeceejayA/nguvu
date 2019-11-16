@@ -1,6 +1,6 @@
 <?php include '../assets/header_admin.php';?>
 <!-- banner -->
-  <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/kampala-skyline.jpg');text-align: center;">
+  <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg.jpg');text-align: center;">
     <div class="container">
       <div class="row">
         <div class="col-md-8 ml-auto mr-auto">
