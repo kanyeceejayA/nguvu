@@ -40,7 +40,7 @@
 
           <li class="nav-item">
             <a href="/" class="nav-link">
-              <i class="material-icons">file_copy</i> Blog <?php echo $_SESSION['username'];
+              <i class="material-icons">file_copy</i> Blog <?php echo $_SESSION['username'];?>
             </a>
           </li> 
 
