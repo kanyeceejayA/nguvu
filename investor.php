@@ -137,24 +137,83 @@
       </div>
 
       </div>
+      <br>
 
-      <style type="text/css">
-        .value{
-          padding-bottom: 1em;
-        }
-        .value .col-sm-8{
-          float: left;
-          /*padding-right: 2em; */
-        }
-        .value .col-sm-2{
-          font-weight: bold;
-          /*max-width: 100px;*/
-        }
-      </style>
-      
+         <?php 
+        $query = "SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where i.inv_id='$inv_id' order by d_date desc";
+                $stmt = $pdo->prepare($query);
+
+              $stmt->execute();
+
+              if($stmt->rowCount()>=1){
+        ?>
+      <h4 class="title" style="text-align: center;">Recent Funding from <?php echo $name; ?></h4>
+      <div class="container col-md-10">
+          <br><!-- Heading -->
+          <div class="row header  d-none d-lg-flex d-md-flex">
+              <div class="col-md-1"><span>Logo</span></div>
+              <div class="col-md-5"><span>Startup</span></div>
+              <div class="col-md-3"><span>Amount / Round</span></div>
+              <div class="col-md-3"><span>Date / Source</span></div>
+          </div>
+
+          <div id="cardholder">
+         <?php //return results
+              
+              foreach ($stmt as $row) {
+                $d_id =$row['d_id'];
+                $logo = logo_check($row['logo']);
+                $location = $row['location'];
+                $s_name = $row['name'];
+                $inv_id = $row['inv_id'];
+                $s_id = $row['s_id'];
+                $i_location = $row['i_location'];
+                
+                //handle money
+                $amount =format_money($row['amount']);
+                
+
+                $round = $row['round'];
+                $date = date_format(date_create($row['d_date']), 'd M Y');
+                $source = $row['source'];
+
+                echo "
+                    <!-- $name card -->
+                    <div class='card'>
+                      <div class='row' style='padding:1.5em 0 1.5em 1em'>
+                        <div class='col-md-1'>
+                          <img src='$logo' class='row-logo'>
+                        </div>
+                        <div class='col-md-4'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Startup/Location</div>
+                          <a href='profile?p=$s_id'>
+                            <strong style='font-size:1.5em;'>$s_name</strong>
+                          </a>
+                          <span>$i_location</span>
+                        </div>
+                        <div class='col-md-5'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
+                          <span>$amount</span>
+                          <a class='badge badge-pill badge-success' href=''>$round</a>
+                        </div>
+                        <div class='col-md-3'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date/Source</div>
+                          <span>$date</span>
+                            <span><a href='$source' target='_blank' rel='noopener'><i class='fa fa-external-link' ></i> Source&nbsp;</a></span>
+                        </div>
+                      </div>
+                    </div><!-- card -->
+                  ";
+              }
+            ?>
+          </div> <!-- cardholder -->
+          <br>
+      </div> <!-- Funding details -->
+
 
 
          <?php
+       }
         $query = "select post_date,post_title,guid FROM wp_posts where (upper(post_title) LIKE '%".$name."%' or upper(post_content) LIKE upper('%".$name."%')) and post_type like '%post' and post_status = 'publish' order by post_date desc";
         $stmt = $pdo->prepare($query);
         $stmt->execute();
@@ -164,7 +223,7 @@
       ?>
 
       <h4 class="title" style="text-align: center;"><?php echo $name; ?> in the News</h4>
-      <div class="container ml-auto mr-auto">
+      <div class="container ml-auto mr-auto col-md-10">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
               <div class="col-md-9"><span>News Story</span></div>
@@ -210,7 +269,21 @@
  <?php } ?>
 
     </div> <!-- container -->
-    <br>
   </main>
+
+      <style type="text/css">
+        .value{
+          padding-bottom: 1em;
+        }
+        .value .col-sm-8{
+          float: left;
+          /*padding-right: 2em; */
+        }
+        .value .col-sm-2{
+          font-weight: bold;
+          /*max-width: 100px;*/
+        }
+      </style>
+      
 
 <?php include 'assets/footer.php'; ?>

@@ -147,13 +147,13 @@
               if($stmt->rowCount()>=1){
         ?>
       <h4 class="title" style="text-align: center;">Recent Funding for<?php echo $name; ?></h4>
-      <div class="container ml-auto mr-auto">
+      <div class="container ml-auto mr-auto col-md-10">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
-              <div class="col-md-2"><span>Logo</span></div>
-              <div class="col-md-4"><span>Investor</span></div>
-              <div class="col-md-4"><span>Amount / Round</span></div>
-              <div class="col-md-2"><span>Date / Source</span></div>
+              <div class="col-md-1"><span>Logo</span></div>
+              <div class="col-md-5"><span>Investor</span></div>
+              <div class="col-md-3"><span>Amount / Round</span></div>
+              <div class="col-md-3"><span>Date / Source</span></div>
           </div>
 
           <div id="cardholder">
@@ -181,10 +181,10 @@
                     <!-- $name card -->
                     <div class='card'>
                       <div class='row' style='padding:1.5em 0 1.5em 1em'>
-                        <div class='col-md-2'>
+                        <div class='col-md-1'>
                           <img src='$logo' class='row-logo'>
                         </div>
-                        <div class='col-md-4'>
+                        <div class='col-md-5'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
                           <a href='investor?p=$inv_id'>
                             <strong style='font-size:1.5em;'>$i_name</strong>
@@ -221,7 +221,7 @@
       ?>
 
       <h4 class="title" style="text-align: center;"><?php echo $name; ?> in the News</h4>
-      <div class="container ml-auto mr-auto">
+      <div class="container ml-auto mr-auto col-md-10">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
               <div class="col-md-9"><span>News Story</span></div>
