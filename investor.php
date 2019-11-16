@@ -167,7 +167,6 @@
                 $s_name = $row['name'];
                 $inv_id = $row['inv_id'];
                 $s_id = $row['s_id'];
-                $i_location = $row['i_location'];
                 
                 //handle money
                 $amount =format_money($row['amount']);
@@ -189,7 +188,7 @@
                           <a href='profile?p=$s_id'>
                             <strong style='font-size:1.5em;'>$s_name</strong>
                           </a>
-                          <span>$i_location</span>
+                          <span>$location</span>
                         </div>
                         <div class='col-md-3'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
