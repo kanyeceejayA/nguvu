@@ -1,6 +1,6 @@
 <?php include 'actions/db_connection.php';
       $page='Investors';
-      include 'assets/header.php'; session_start();?>
+      session_start(); include 'assets/header.php';?>
 <!-- banner -->
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('assets/img/kampala-skyline.jpg');text-align: center;">
     <div class="container">

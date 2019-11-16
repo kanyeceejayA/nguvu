@@ -36,7 +36,7 @@
     $description = $row['description'];
   }
   $page=$name;
-  include 'assets/header.php'; session_start();
+  session_start(); include 'assets/header.php';
 
 
         //get startups invested in, and total money
