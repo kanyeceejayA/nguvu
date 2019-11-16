@@ -17,7 +17,7 @@
         <div class="col-md-8 ml-auto mr-auto">
           <div class="brand" style="text-align: center;">
             <br/>
-            <h1 class="title" style="color: white">Edit Invetors</h1>
+            <h1 class="title" style="color: white">Edit Funding</h1>
           </div>
         </div>
       </div>
