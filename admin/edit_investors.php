@@ -1,4 +1,6 @@
-<?php include '../assets/header_admin.php';
+<?php if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} include '../assets/header_admin.php';
       if(!isset($_GET['p'] )){
         header('location:list_investors.php');
       }

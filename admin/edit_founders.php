@@ -1,4 +1,6 @@
-<?php include '../assets/header_admin.php'; ?>
+<?php if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} include '../assets/header_admin.php'; ?>
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg.jpg');">
     <div class="container">
       <div class="row">

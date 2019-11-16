@@ -1,4 +1,6 @@
-<?php include '../assets/header_admin.php';
+<?php if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} include '../assets/header_admin.php';
     $d_id = $_GET['p'];
     $stmt = $pdo->prepare("select d_id,s_id,inv_id,amount,round,d_date,source from deals where d_id ='$d_id';");
     $stmt->execute();
