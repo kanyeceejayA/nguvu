@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php session_start();
+<?php if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
   $page = (isset($page)) ? $page : '' ;
   ?>
 <html lang="en">

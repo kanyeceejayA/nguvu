@@ -1,6 +1,8 @@
 <?php
   include ('../actions/db_connection.php');
-  session_start();
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // email and password sent from form 
       

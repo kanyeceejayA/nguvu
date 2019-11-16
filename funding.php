@@ -1,6 +1,8 @@
 <?php include 'actions/db_connection.php';
       $page='Funding';
-      session_start(); include 'assets/header.php';
+      if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} include 'assets/header.php';
 
       error_reporting(0);
       function date_check($date){

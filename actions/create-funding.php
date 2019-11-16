@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 	require("db_connection.php");
 //start with if to capture empty statements
 if(!isset($_POST["s_id"]) && !isset($_POST["inv_id"]) ){
