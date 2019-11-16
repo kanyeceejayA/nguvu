@@ -144,7 +144,7 @@
 
               $stmt->execute();
 
-              if($stmt->rowCount()>1){
+              if($stmt->rowCount()>=1){
         ?>
       <h4 class="title" style="text-align: center;">Recent Funding for<?php echo $name; ?></h4>
       <div class="container ml-auto mr-auto">
