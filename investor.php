@@ -152,6 +152,63 @@
         }
       </style>
       
+
+
+         <?php
+        $query = "select post_date,post_title,guid FROM wp_posts where (upper(post_title) LIKE '%".$name."%' or upper(post_content) LIKE upper('%".$name."%')) and post_type like '%post' and post_status = 'publish' order by post_date desc";
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        if($stmt->rowCount()>=1){
+
+      ?>
+
+      <h4 class="title" style="text-align: center;"><?php echo $name; ?> in the News</h4>
+      <div class="container ml-auto mr-auto">
+          <br><!-- Heading -->
+          <div class="row header  d-none d-lg-flex d-md-flex">
+              <div class="col-md-9"><span>News Story</span></div>
+              <div class="col-md-3"><span>Date</span></div>
+          </div>
+
+          <div id="cardholder" class="news">
+         <?php //return results
+              
+              foreach ($stmt as $row) {
+                $post_date = $row['post_date'];
+                $post_date = date_format(date_create($post_date), 'd M Y');
+                $post_title = $row['post_title'];
+                $link = $row['guid'];
+                
+                echo "
+                    <!-- $name card -->
+                    <a class='card' href='$link' target='_blank' rel='noopener'>
+                      <div class='row' style='padding:1.5em 0 1.5em 1em'>
+                        
+                        <div class='col-md-9'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>title</div>
+                          <div>
+                            <strong style=''>$post_title <i class='fa fa-external-link' ></i></strong>
+                          </div>
+                        </div>
+
+                        <div class='col-md-3'>
+                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Date</div>
+                          <span>$post_date</span>
+                        </div>
+
+                        
+                      </div>
+                    </a> <!-- card -->
+                  ";
+              }
+            ?>
+          </div> <!-- cardholder -->
+          <br>
+      </div> <!-- NEws Stories -->
+
+ <?php } ?>
+
     </div> <!-- container -->
     <br>
   </main>
