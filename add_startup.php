@@ -16,7 +16,7 @@
   </div>
   <main class="main main-raised">
     <br>
-    <?php 
+ <?php 
                 if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
                 $_SESSION['message'] = null;
               ?>  
@@ -44,7 +44,7 @@
             <div class="form-group bmd-form-group">
               <label for="type_id" class="">Sector</label>
               <select required type="text" class="form-control" name="type_id">
-                <?php
+             <?php
                   $stmt = $pdo->prepare('select * from type;');
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -57,7 +57,7 @@
             <div class="form-group bmd-form-group">
               <label for="type_id2" class="">2nd Sector(if it applies)</label>
               <select type="text" class="form-control" name="type_id2" value="0">
-                <?php
+             <?php
                   $stmt = $pdo->prepare('select * from type order by type_id;');
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -89,7 +89,7 @@
             <div class="form-group bmd-form-group row">
               <label for="type_id" class="col-sm-4">Countries of Operation:</label>
               <select type="text" class="form-control col-sm-8" id="c_list" onchange="lister()">
-                <?php
+             <?php
                   $stmt = $pdo->prepare('select country_id,name from countries;');
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -98,7 +98,7 @@
                 ?>
               </select>
               <select type="text" class="" name="country_id[]" id="c_values" multiple hidden>
-                <?php
+             <?php
                   $stmt = $pdo->prepare('select country_id,name from countries;');
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -152,7 +152,7 @@
               <div class="form-group bmd-form-group row">
                 <label for="status_id" class="col-sm-4">Company Status:</label>
                 <select required type="text" class="form-control col-sm-4" name="status_id">
-                <?php
+             <?php
                   $stmt = $pdo->prepare('select * from status;');
                   $stmt->execute();
                   foreach ($stmt as $row) {

@@ -19,14 +19,14 @@
       <form class="container" method="POST" action="actions/create-funding.php" enctype="multipart/form-data">
 
         <div class="col-md-8 ml-auto mr-auto">
-          <?php 
+       <?php 
               if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
               $_SESSION['message'] = null;
           ?>  
           <div class="form-group bmd-form-group">
             <label for="s_id" class="bmd-label">Startup</label><br>
             <select required type="text" class="form-control" name="s_id">
-              <?php
+           <?php
                 $stmt = $pdo->prepare('select s_id,name from startups;');
                 $stmt->execute();
                 foreach ($stmt as $row) {
@@ -39,7 +39,7 @@
           <div class="form-group bmd-form-group">
             <label for="inv_id" class="bmd-label">Investor:</label><br>
             <select required type="text" class="form-control" name="inv_id">
-              <?php
+           <?php
                 $stmt = $pdo->prepare("select inv_id,name from investors where inv_id = '0';");
                 $stmt->execute();
                 foreach ($stmt as $row) {

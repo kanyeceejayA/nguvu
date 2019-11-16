@@ -16,7 +16,7 @@
   </div>
   <main class="main main-raised">
     <br>
-    <?php 
+ <?php 
                 if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
                 $_SESSION['message'] = null;
               ?>  
