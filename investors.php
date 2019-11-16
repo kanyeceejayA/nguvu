@@ -82,7 +82,7 @@
                 }
                 if($i==6){
                   if (!(in_array($new_name, $s_name))) {
-                    array_push($s_name, '...');
+                    array_push($s_name, '...' );
                   }
                   $i +=1;
                 }

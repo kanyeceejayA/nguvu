@@ -152,21 +152,21 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
                   }
-                  $stmt = $pdo->prepare("select country_id,name,s_id from countries c left join c_of_operation co on c_id=country_id where s_id !=".$s_id." or s_id is NULL order by name asc");
+                  $stmt = $pdo->prepare("select distinct country_id,name from countries c left join c_of_operation co on c_id=country_id where s_id !=".$s_id." or s_id is NULL order by name asc");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
                   }
                 ?>
               </select>
-              <select type="text" class="" name= "country_id[]" id="c_values" multiple>
+              <select type="text" class="" name= "country_id[]" id="c_values" multiple hidden>
              <?php
                   $stmt = $pdo->prepare("select country_id,name FROM countries c join c_of_operation co on c.country_id = co.c_id where s_id = $s_id;");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."' selected>".$row['name']."</option>\n";
                   }
-                  $stmt = $pdo->prepare("select country_id,name,s_id from countries c left join c_of_operation co on c_id=country_id where s_id !=".$s_id." or s_id is NULL order by name asc");
+                  $stmt = $pdo->prepare("select distinct country_id,name from countries c left join c_of_operation co on c_id=country_id where s_id !=".$s_id." or s_id is NULL order by name asc");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
