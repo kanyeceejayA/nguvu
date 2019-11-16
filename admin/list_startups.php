@@ -1,4 +1,6 @@
-<?php selectedValue?>
+<?php if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+} include '../assets/header_admin.php';?>
 <!-- banner -->
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/profile_city.jpg');">
     <div class="container">
