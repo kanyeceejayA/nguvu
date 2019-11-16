@@ -104,7 +104,7 @@ else{
 			$stmt_c = $pdo->prepare($sql_c);
 
 			foreach ($country_id as $c_id) {
-				echo $c_id;
+				// echo $c_id;
 				$stmt_c->execute(array($c_id));
 			}
 		} catch (Exception $e) {
