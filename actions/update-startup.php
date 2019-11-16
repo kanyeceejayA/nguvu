@@ -62,7 +62,7 @@ else{
 	}
 
 	//Country details
-	// $country_id = (isset($_POST["country_id"])) ? test_input($_POST['country_id']) : NULL;
+	$country_id = (isset($_POST["country_id"])) ? $_POST['country_id'] : NULL;
 
 	//founders details
 	$no_founders = $_POST['no_founders'];
@@ -92,6 +92,20 @@ else{
 				$stmt_f = $pdo->prepare($sql_f);
 
 				$stmt_f->execute();
+			}
+
+
+			//remove current countries
+			$stmt_del = $pdo->prepare("delete from c_of_operation where s_id ='".$s_id."'");
+			$stmt_del->execute();
+
+			//add new countries
+			$sql_c = "INSERT INTO `c_of_operation` (`c_id`, `s_id`) VALUES (?, '".$s_id."')";//c=countries
+			$stmt_c = $pdo->prepare($sql_c);
+
+			foreach ($country_id as $c_id) {
+				echo $c_id;
+				$stmt_c->execute(array($c_id));
 			}
 		} catch (Exception $e) {
 			$error='Error saving extra details:.'.$e;
@@ -125,7 +139,7 @@ if (isset($message)&&isset($error)) {
 			          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			            <span aria-hidden="true"><i class="material-icons">clear</i></span>
 			          </button>
-			          '.$message.' and NO-FOUNDERS: '.$no_founders.' and f_name: '.$f_name[1].'
+			          '.$message.' and countries: '.$no_founders.' and f_name: '.$f_name[1].'
 			        </div>
 			      </div>';
 }

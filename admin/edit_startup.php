@@ -145,7 +145,12 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
               <label for="type_id" class="col-sm-4">Countries of Operation:</label>
               <select type="text" class="form-control col-sm-8" id="c_list" onchange="lister()">
              <?php
-                  $stmt = $pdo->prepare('select country_id,name from countries;');
+                 $stmt = $pdo->prepare("select country_id,name FROM countries c join c_of_operation co on c.country_id = co.c_id where s_id = $s_id;");
+                  $stmt->execute();
+                  foreach ($stmt as $row) {
+                    echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
+                  }
+                  $stmt = $pdo->prepare("select country_id,name,s_id from countries c left join c_of_operation co on c_id=country_id where s_id !=".$s_id." or s_id is NULL order by name asc");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['country_id']."'>".$row['name']."</option>\n";
@@ -173,7 +178,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                 ?>
-                  <span id="<?php echo $row['country_id'];?>" onclick="del('<?php echo $row['country_id'];?>')" class="badge badge-pill badge-success country"><?php echo $row['name'] ?></span>
+                  <span id="<?php echo ($row['country_id']);?>" onclick="del('<?php echo $row['country_id'];?>')" class="badge badge-pill badge-success country"><?php echo $row['name'] ?></span>
              <?php } ?>
               </span>
             </div> <!-- form-group -->
@@ -300,12 +305,17 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                 chosen = document.getElementById('chosen');
                 c_list = document.getElementById('c_list');
                 c_values = document.getElementById('c_values');
-                chosen.innerHTML += ' <span id="'+c_list.selectedIndex+'" onclick="del('+c_list.selectedIndex+')" class="badge badge-pill badge-success country">X  '+c_list.options[c_list.selectedIndex].text+'</span>';
+                c_chosen_value = c_list.options[c_list.selectedIndex].value;
 
-                c_values.options[c_list.selectedIndex].selected= true;
+
+                index = find_index(c_chosen_value);
+                c_values.options[index].selected= true;
+
+                chosen.innerHTML += ' <span id="'+index+'" onclick="del('+c_chosen_value+')" class="badge badge-pill badge-success country">X  '+c_values.options[index].text+'</span>';
               }
-              function del(index) {
-                var elem = document.getElementById(index);
+              function del(c_chosen_value) {
+                index = find_index(c_chosen_value);
+                var elem = document.getElementById(c_chosen_value);
                 c_values = document.getElementById('c_values');
                 elem.parentNode.removeChild(elem);
 
@@ -323,6 +333,16 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                   }
                 }
 
+              }
+
+              function find_index(val) {
+                let Things = document.getElementById('c_values');
+                for (var i = Things.length - 1; i >= 0; i--) {
+                  if (Things[i].value == val) {
+                    index = Things[i].index;
+                  }
+                }
+                return index;
               }
             </script>
 
