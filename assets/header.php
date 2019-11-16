@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<?php session_start();
+<?php
+  error_reporting(1);
+   session_start();
   $page = (isset($page)) ? $page : '' ;
   ?>
 <html lang="en">
@@ -38,7 +40,13 @@
       <div class="collapse navbar-collapse">
         <ul class="navbar-nav ml-auto">
 
-          <li class="dropdown nav-item">
+          <li class="nav-item">
+            <a href="/" class="nav-link">
+              <i class="material-icons">file_copy</i> Blog
+            </a>
+          </li> 
+
+          <li class="nav-item">
             <a href="funding" class="nav-link">
               <i class="material-icons">done_all</i> Funding
             </a>
