@@ -18051,7 +18051,7 @@ footer .pull-center {
 
 /*Kanyesigye Akbe Mods*/
 #cardholder{
-            min-height: 300px;
+            /*min-height: 300px;*/
           }
           .card{
             font-size: 1em;
