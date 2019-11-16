@@ -184,14 +184,14 @@
                         <div class='col-md-1'>
                           <img src='$logo' class='row-logo'>
                         </div>
-                        <div class='col-md-4'>
+                        <div class='col-md-5'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Startup/Location</div>
                           <a href='profile?p=$s_id'>
                             <strong style='font-size:1.5em;'>$s_name</strong>
                           </a>
                           <span>$i_location</span>
                         </div>
-                        <div class='col-md-5'>
+                        <div class='col-md-3'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
                           <span>$amount</span>
                           <a class='badge badge-pill badge-success' href=''>$round</a>
