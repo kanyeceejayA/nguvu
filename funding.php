@@ -74,12 +74,12 @@
         <form class="form-inline col-md-6" action="" method="GET">
           <div class="form-group bmd-form-group">
             <label for="f_year" class="">From</label>
-            <input type="text" class="form-control datetimepicker" name="from" id="from" onclick="reset_view()" <?php if($from !=''){ echo 'value=$from';} ?>>
+            <input type="text" class="form-control datetimepicker" name="from" id="from" onclick="reset_view()"<?php if($from !=''){ echo 'value=$from';} ?>>
           </div> <!-- form-group -->
           &nbsp;&nbsp;&nbsp;
           <div class="form-group bmd-form-group">
             <label for="f_year" class="">To</label>
-            <input type="text" class="form-control datetimepicker" name="to" id="to" onclick="reset_view()" <?php if($to !=''){ echo 'value=$to';} ?>>
+            <input type="text" class="form-control datetimepicker" name="to" id="to" onclick="reset_view()"<?php if($to !=''){ echo 'value=$to';} ?>>
           </div> <!-- form-group -->
           <button class="btn btn-primary btn-round btn-sm">
             <i class="material-icons">search</i> Filter
@@ -103,7 +103,7 @@
         </div>
 
         <div id="cardholder">
-          <?php //return results
+       <?php //return results
 
             $stmt->execute();
             foreach ($stmt as $row) {
@@ -215,19 +215,19 @@
 
       $('#from').data("DateTimePicker").format('D-MMM-Y');
 
-      <?php if($from != ''){ ?>
+   <?php if($from != ''){ ?>
 
        $("#from").val( moment('<?php echo $from ;?>').format('D-MMM-Y') );
 
-       <?php } ?>
+    <?php } ?>
 
        $('#to').data("DateTimePicker").format('D-MMM-Y');
 
-       <?php if($to !=''){ ?>
+    <?php if($to !=''){ ?>
 
        $("#to").val( moment('<?php echo $to ;?>').format('D-MMM-Y') );
 
-     <?php } ?>
+  <?php } ?>
 
     });
 

@@ -46,7 +46,7 @@
 
         <div id="cardholder">
 
-          <?php //return results
+       <?php //return results
             
             $stmt = $pdo->prepare('select * from investors where inv_id>0;');
             $stmt->execute();

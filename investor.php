@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>8
-  <?php
+<?php
     $stmt = $pdo->prepare('select * from investors_view where inv_id=?');
     $stmt->execute(array($_GET['p']));
     foreach ($stmt as $row) {
@@ -60,7 +60,7 @@
 
     }
   ?>
-  <?php
+<?php
           //get Recent Investments  
           $stmt = $pdo->prepare('select * from funding_view where inv_id=?');
           $stmt->execute(array($_GET['p']));
@@ -96,9 +96,9 @@
         </div>
         <div class="col-sm-3 card">
           <p class="title">Total Recorded funding<br> <span><?php echo $amount;?></span></p>
-          <?php if(isset($_SESSION['username'])){ ?>
+       <?php if(isset($_SESSION['username'])){ ?>
               <a href='admin/edit_investors?p=<?php echo $inv_id;?>'><i class='fa fa-edit'></i>&nbsp;Edit Investor</a><br>
-            <?php } ?>
+         <?php } ?>
         </div>
       </div> <!-- row -->
 

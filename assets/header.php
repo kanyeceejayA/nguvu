@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<?php
-  error_reporting(1);
-   session_start();
+<?php session_start();
   $page = (isset($page)) ? $page : '' ;
   ?>
 <html lang="en">
@@ -12,7 +10,7 @@
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    <?php echo $page;?> | Nguvu Africa Database
+ <?php echo $page;?> | Nguvu Africa Database
   </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -84,15 +82,15 @@
             </div>
           </li>
 
-          <?php if(!isset($_SESSION['username'])){ ?>
+       <?php if(!isset($_SESSION['username'])){ ?>
             <li class="dropdown nav-item">
             <a href='admin/login?p=<?php echo $_SERVER["REQUEST_URI"];?>' class="nav-link">
               <i class="material-icons">person</i> Log In
             </a>
           </li> 
-        <?php } ?>
+     <?php } ?>
 
-          <?php if(isset($_SESSION['username'])){ ?>
+       <?php if(isset($_SESSION['username'])){ ?>
 
             <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
@@ -113,7 +111,7 @@
 
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                  <i class="material-icons">person</i> <?php echo $_SESSION['username'];?>
+                  <i class="material-icons">person</i><?php echo $_SESSION['username'];?>
                 </a>
                 <div class="dropdown-menu dropdown-with-icons">
                   <a href="admin/index" class="dropdown-item">
@@ -124,7 +122,7 @@
                   </a>
                 </div>
               </li>
-            <?php } ?>
+         <?php } ?>
           
         </ul>
       </div>

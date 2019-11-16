@@ -17,7 +17,7 @@
   <main class="main">
     <div class="container">
         <br>
-         <?php 
+      <?php 
               if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
               $_SESSION['message'] = null;
           ?>  
@@ -48,7 +48,7 @@
         </div>
 
         <div id="cardholder">
-          <?php //return results
+       <?php //return results
             
             $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id,d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id order by d_date desc');
             $stmt->execute();

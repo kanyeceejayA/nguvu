@@ -97,7 +97,7 @@
                   <h4>Login</h4>
               </div>
               
-                <?php 
+             <?php 
                   if(isset($error)){
                     echo "<span style='text-align: center;color: red;'>".$error."</span>";
                   }else{

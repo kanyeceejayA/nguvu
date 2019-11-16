@@ -58,7 +58,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
 
   <main class="main main-raised">
     <br>
-    <?php 
+ <?php 
                 if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
                 $_SESSION['message'] = null;
               ?>  
@@ -66,7 +66,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
         <div class="row">
           <div class="col-sm-4">
 
-            <h4>Editing details for <?php echo $name.' with startup id '.$s_id; ?></h4>
+            <h4>Editing details for<?php echo $name.' with startup id '.$s_id; ?></h4>
 
             <div class="form-group bmd-form-group">
               <label for="name" class="bmd-label">name</label><br>
@@ -89,7 +89,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
             <div class="form-group bmd-form-group">
               <label for="type_id" class="">Sector</label>
               <select required type="text" class="form-control" name="type_id" value="<?php echo $type_id;?>">
-                <?php
+             <?php
                   $stmt = $pdo->prepare("select * from type where type_id= '$type_id';");
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -107,7 +107,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
             <div class="form-group bmd-form-group">
               <label for="type_id2" class="">2nd Sector(if it applies)</label>
               <select type="text" class="form-control" name="type_id2" value="<?php echo $type_id2;?>" value="0">
-                <?php
+             <?php
                   $stmt = $pdo->prepare("select * from type where type_id = $type_id2;");
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -144,7 +144,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
             <div class="form-group bmd-form-group row">
               <label for="type_id" class="col-sm-4">Countries of Operation:</label>
               <select type="text" class="form-control col-sm-8" id="c_list" onchange="lister()">
-                <?php
+             <?php
                   $stmt = $pdo->prepare('select country_id,name from countries;');
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -153,7 +153,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
                 ?>
               </select>
               <select type="text" class="" name= "country_id[]" id="c_values" multiple>
-                <?php
+             <?php
                   $stmt = $pdo->prepare("select country_id,name FROM countries c join c_of_operation co on c.country_id = co.c_id where s_id = $s_id;");
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -168,13 +168,13 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
               </select>
               <br><br>
               <span id="chosen" style="display:block;cursor: pointer;">Countries:&nbsp;
-                <?php
+             <?php
                   $stmt = $pdo->prepare("select country_id,name FROM countries c join c_of_operation co on c.country_id = co.c_id where s_id = $s_id;");
                   $stmt->execute();
                   foreach ($stmt as $row) {
                 ?>
                   <span id="<?php echo $row['country_id'];?>" onclick="del('<?php echo $row['country_id'];?>')" class="badge badge-pill badge-success country"><?php echo $row['name'] ?></span>
-                <?php } ?>
+             <?php } ?>
               </span>
             </div> <!-- form-group -->
 
@@ -200,7 +200,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
               </div>
 
               <div id="founders_parent">
-                <?php 
+             <?php 
                   $i=1;
                   $stmt = $pdo->prepare("select * from founders where s_id = '$s_id' order by f_id asc;");
                   $stmt->execute();
@@ -230,7 +230,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
               <div class="form-group bmd-form-group row">
                 <label for="status_id" class="col-sm-4">Company Status:</label>
                 <select required type="text" class="form-control col-sm-4" name="status_id" value="<?php echo $status_id;?>">
-                <?php
+             <?php
                   $stmt = $pdo->prepare("select * from status where status_id=$status_id;");
                   $stmt->execute();
                   foreach ($stmt as $row) {
@@ -248,14 +248,14 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
               <div class="form-group bmd-form-group row">
                 <label for="funding_stage" class="col-sm-4">Funding Stage:</label>
                 <select required type="text" class="form-control col-sm-4" name="funding_stage" value="<?php echo $funding_stage;?>">
-                  <option value="seed" <?php if($funding_stage=='seed'){echo 'selected';}?> >seed</option>
-                  <option value="Series A" <?php if($funding_stage=='Series A'){echo 'selected';}?> >Series A</option>
-                  <option value="Series B" <?php if($funding_stage=='Series B'){echo 'selected';}?> >Series B</option>
-                  <option value="Series C" <?php if($funding_stage=='Series C'){echo 'selected';}?> >Series C</option>
-                  <option value="Series D" <?php if($funding_stage=='Series D'){echo 'selected';}?> >Series D</option>
-                  <option value="Series E" <?php if($funding_stage=='Series E'){echo 'selected';}?> >Series E</option>
-                  <option value="I.P.O" <?php if($funding_stage=='I.P.O'){echo 'selected';}?> >I.P.O</option>
-                  <option value="M&A" <?php if($funding_stage=='M&A'){echo 'selected';}?> >M&A</option>
+                  <option value="seed"<?php if($funding_stage=='seed'){echo 'selected';}?> >seed</option>
+                  <option value="Series A"<?php if($funding_stage=='Series A'){echo 'selected';}?> >Series A</option>
+                  <option value="Series B"<?php if($funding_stage=='Series B'){echo 'selected';}?> >Series B</option>
+                  <option value="Series C"<?php if($funding_stage=='Series C'){echo 'selected';}?> >Series C</option>
+                  <option value="Series D"<?php if($funding_stage=='Series D'){echo 'selected';}?> >Series D</option>
+                  <option value="Series E"<?php if($funding_stage=='Series E'){echo 'selected';}?> >Series E</option>
+                  <option value="I.P.O"<?php if($funding_stage=='I.P.O'){echo 'selected';}?> >I.P.O</option>
+                  <option value="M&A"<?php if($funding_stage=='M&A'){echo 'selected';}?> >M&A</option>
                 </select>
               </div> <!-- form-group -->
 

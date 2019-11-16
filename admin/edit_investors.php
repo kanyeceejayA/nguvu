@@ -42,7 +42,7 @@
   </div>
   <main class="main main-raised">
     <br>
-    <?php 
+ <?php 
                 if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
                 $_SESSION['message'] = null;
               ?>  
@@ -97,8 +97,8 @@
               <div class="form-group bmd-form-group row">
                 <label for="status" class="col-sm-4">Company Status:</label>
                 <select required type="text" class="form-control col-sm-4" name="status" value="<?php echo $status;?>">
-                  <option <?php if($status =='Active'){echo 'selected';}?> >Active</option>
-                  <option <?php if($status =='Inactive'){echo 'selected';}?> >Inactive</option>
+                  <option<?php if($status =='Active'){echo 'selected';}?> >Active</option>
+                  <option<?php if($status =='Inactive'){echo 'selected';}?> >Inactive</option>
               </select>
               </div> <!-- form-group -->
 

@@ -2,12 +2,12 @@
   <footer class="footer footer-default">
     <div class="container">
       <div class=" copyright float-left">
-      <?php if(isset($_SESSION['username'])){ ?>
-              Logged In as <?php echo $_SESSION['username'];?>. <a href="admin/logout?p=<?php echo $_SERVER["REQUEST_URI"];?>">Logout</a>
-      <?php } ?>
-      <?php if(!isset($_SESSION['username'])){ ?>
+   <?php if(isset($_SESSION['username'])){ ?>
+              Logged In as<?php echo $_SESSION['username'];?>. <a href="admin/logout?p=<?php echo $_SERVER["REQUEST_URI"];?>">Logout</a>
+   <?php } ?>
+   <?php if(!isset($_SESSION['username'])){ ?>
           <a href="admin/index">Log In</a>
-      <?php } ?>
+   <?php } ?>
       </div>
       <div class="copyright float-right">
         &copy;

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<?php 
-  error_reporting(1);
-  require 'session.php'; ?>
+<?php require 'session.php'; ?>
 <html lang="en">
 
 <head>
@@ -101,7 +99,7 @@
 
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-              <i class="material-icons">person</i> <?php echo $_SESSION['username'];?>
+              <i class="material-icons">person</i><?php echo $_SESSION['username'];?>
             </a>
             <div class="dropdown-menu dropdown-with-icons">
               <a href="../" class="dropdown-item">

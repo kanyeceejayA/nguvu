@@ -33,7 +33,7 @@ $stmt = $pdo->prepare("select f_id,s.s_id,f_name,f_email,f_phone, name s_name fr
 
   <main class="main main-raised">
     <br>
-    <?php 
+ <?php 
                 if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
                 $_SESSION['message'] = null;
               ?>  
@@ -41,7 +41,7 @@ $stmt = $pdo->prepare("select f_id,s.s_id,f_name,f_email,f_phone, name s_name fr
         <div class="row">
           <div class="col-sm-4">
 
-            <h4>Editing details for <?php echo $f_name.' from '.$s_name; ?></h4>
+            <h4>Editing details for<?php echo $f_name.' from '.$s_name; ?></h4>
 
             <div class="form-group bmd-form-group">
               <label for="f_name" class="bmd-label">Founder's name</label><br>
@@ -63,7 +63,7 @@ $stmt = $pdo->prepare("select f_id,s.s_id,f_name,f_email,f_phone, name s_name fr
             <div class="form-group bmd-form-group">
               <label for="type_id" class="">Startup</label>
               <select required type="text" class="form-control" name="type_id" value="<?php echo $type_id;?>">
-                <?php
+             <?php
                   $stmt = $pdo->prepare("select s_id,name from startups where s_id = '$s_id';");
                   $stmt->execute();
                   foreach ($stmt as $row) {

@@ -1,4 +1,4 @@
- <?php
+<?php
 	session_start();
 	require("db_connection.php");
 //start with if to capture empty statements

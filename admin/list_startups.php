@@ -17,7 +17,7 @@
   <main class="main">
     <div class="container">
         <br>
-        <?php 
+     <?php 
                 if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
                 $_SESSION['message'] = null;
               ?>  
@@ -50,7 +50,7 @@
 
         <div id="cardholder">
 
-          <?php //return results
+       <?php //return results
             
             $stmt = $pdo->prepare('select * from single_startups_view order by funding desc');
             $stmt->execute();

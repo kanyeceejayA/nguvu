@@ -81,9 +81,9 @@
         </div>
         <div class="col-sm-3 card">
           <p class="title">Total Funding Amount<br> <span><?php echo $funding;?></span></p>
-          <?php if(isset($_SESSION['username'])){ ?>
+       <?php if(isset($_SESSION['username'])){ ?>
               <a href='admin/edit_startup?p=<?php echo $s_id;?>'><i class='fa fa-edit'></i>&nbsp;Edit Startup</a><br>
-            <?php } ?>
+         <?php } ?>
         </div>
       </div> <!-- logo and name -->
 
@@ -136,7 +136,7 @@
       </div> <!-- Main Content details and side card -->
 
       <br>
-      <?php 
+   <?php 
         $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
                 $stmt = $pdo->prepare($query);
 
@@ -144,7 +144,7 @@
 
               if($stmt->rowCount()>1){
         ?>
-      <h4 class="title" style="text-align: center;">Recent Funding for <?php echo $name; ?></h4>
+      <h4 class="title" style="text-align: center;">Recent Funding for<?php echo $name; ?></h4>
       <div class="container ml-auto mr-auto">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
@@ -155,7 +155,7 @@
           </div>
 
           <div id="cardholder">
-            <?php //return results
+         <?php //return results
               
               foreach ($stmt as $row) {
                 $d_id =$row['d_id'];
@@ -208,7 +208,7 @@
           <br>
       </div> <!-- Funding details -->
 
-      <?php
+   <?php
         }
         $query = "select post_date,post_title,guid FROM wp_posts where (upper(post_title) LIKE '%".$name."%' or upper(post_content) LIKE upper('%".$name."%')) and post_type like '%post' and post_status = 'publish' order by post_date desc";
         $stmt = $pdo->prepare($query);
@@ -227,7 +227,7 @@
           </div>
 
           <div id="cardholder" class="news">
-            <?php //return results
+         <?php //return results
               
               foreach ($stmt as $row) {
                 $post_date = $row['post_date'];
@@ -262,7 +262,7 @@
           <br>
       </div> <!-- NEws Stories -->
 
-    <?php } ?>
+ <?php } ?>
 
   </div>
   </main>
