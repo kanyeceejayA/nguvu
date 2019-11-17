@@ -146,7 +146,7 @@
 
               if($stmt->rowCount()>=1){
         ?>
-      <h4 class="title" style="text-align: center;">Recent Funding for<?php echo $name; ?></h4>
+      <h4 class="title" style="text-align: center;">Recent Funding for <?php echo $name; ?></h4>
       <div class="container ml-auto mr-auto col-md-10">
           <br><!-- Heading -->
           <div class="row header  d-none d-lg-flex d-md-flex">
