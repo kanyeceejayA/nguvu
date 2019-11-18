@@ -62,7 +62,7 @@ else{
 
 		try {
 			foreach ($country_id as $c_id) {
-				echo $c_id;
+				// echo $c_id;
 				$stmt_c->execute(array($c_id));
 			}
 
