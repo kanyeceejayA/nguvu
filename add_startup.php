@@ -47,7 +47,7 @@
               <label for="type_id" class="">Sector</label>
               <select required type="text" class="form-control" name="type_id">
              <?php
-                  $stmt = $pdo->prepare('select * from type;');
+                  $stmt = $pdo->prepare('select * from type order by type_id;');
                   $stmt->execute();
                   foreach ($stmt as $row) {
                     echo "<option value='".$row['type_id']."'>".$row['type']."</option>\n";

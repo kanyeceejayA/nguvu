@@ -84,13 +84,6 @@
             </div>
           </li>
 
-       <?php if(!isset($_SESSION['username'])){ ?>
-            <li class="dropdown nav-item">
-            <a href='admin/login?p=<?php echo $_SERVER["REQUEST_URI"];?>' class="nav-link">
-              <i class="material-icons">person</i> Log In
-            </a>
-          </li> 
-     <?php } ?>
 
        <?php if(isset($_SESSION['username'])){ ?>
 
