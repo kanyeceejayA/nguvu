@@ -101,13 +101,3 @@ s.name as s_name
 from deals f 
 join investors i on f.inv_id = i.inv_id
 join startups s on f.s_id = s.s_id
-
-
-SELECT d_id,
-deal_id, s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id,
-GROUP_CONCAT(i.name SEPARATOR ' | ') i_name, GROUP_CONCAT(i.location SEPARATOR ' | ') i_location,
-amount,round,d_date, source 
-FROM deals d 
-join startups s on d.s_id = s.s_id 
-JOIN investors i on d.inv_id = i.inv_id  
-GROUP by deal_id order by d_date desc

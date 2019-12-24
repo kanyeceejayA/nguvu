@@ -41,8 +41,8 @@
 } include 'assets/header.php';
 
 
-        //get Investors that have funded, and total money
-          $stmt = $pdo->prepare('select * from funding_view where s_id=? order by d_date desc LIMIT 5');
+        //get startups invested in, and total money
+          $stmt = $pdo->prepare('select * from funding_view where s_id=?');
           $stmt->execute(array($_GET['p']));
 
           $inv_name = array();
@@ -138,9 +138,8 @@
       </div> <!-- Main Content details and side card -->
 
       <br>
-
    <?php 
-        $query = "SELECT d_id,deal_id, d.s_id, s.logo, s.name as name, s.location location, GROUP_CONCAT(i.inv_id) inv_id, GROUP_CONCAT(i.name SEPARATOR ' | ') i_name, GROUP_CONCAT(i.location SEPARATOR ' | ') i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' GROUP by deal_id order by d_date desc";
+        $query = "SELECT d_id,i.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id where s.s_id='$s_id' order by d_date desc";
                 $stmt = $pdo->prepare($query);
 
               $stmt->execute();
@@ -178,23 +177,6 @@
                 $date = date_format(date_create($row['d_date']), 'd M Y');
                 $source = $row['source'];
 
-                //Handle Multiple Investors Logic
-              $inv_id = explode(',',$inv_id);
-              $i = 0;
-              $i_name = explode(' | ',$i_name);
-              $investor_array = array();
-
-              while ($i<count($inv_id)){
-                $contents = "
-                  <a href='investor?p=$inv_id[$i]'>
-                    <strong style='font-size:1.5em;'>$i_name[$i]</strong>
-                  </a>";
-                array_push($investor_array, $contents);
-                  $i+=1;
-              }
-              $investor_details = implode(" <strong style='font-size:1.5em;font-weight:300'>|</strong> ", $investor_array);
-
-
                 echo "
                     <!-- $name card -->
                     <div class='card'>
@@ -204,7 +186,9 @@
                         </div>
                         <div class='col-md-5'>
                           <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
-                          $investor_details
+                          <a href='investor?p=$inv_id'>
+                            <strong style='font-size:1.5em;'>$i_name</strong>
+                          </a>
                           <span>$i_location</span>
                         </div>
                         <div class='col-md-3'>

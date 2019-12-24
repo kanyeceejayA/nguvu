@@ -2,23 +2,7 @@
       $page='Add Funding';
       if (session_status() == PHP_SESSION_NONE) {
     session_start();
-
-    //select investors data
-    $stmt = $pdo->prepare("select inv_id,name from investors where inv_id = '0';");
-    $stmt->execute();
-    $selectdata='';
-    foreach ($stmt as $row) {
-        $selectdata .= "<option value='".$row['inv_id']."' selected>".$row['name']."</option>\n";
-    }
-    $stmt = $pdo->prepare('select inv_id,name from investors where inv_id != 0;');
-    $stmt->execute();
-    foreach ($stmt as $row) {
-        $selectdata.= "<option value='".$row['inv_id']."'>".$row['name']."</option>\n";
-    }
-
 } include 'assets/header.php';?>
-
-
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('assets/img/bg.jpg');">
     <div class="container">
       <div class="row">
@@ -37,41 +21,47 @@
       <form class="container" method="POST" action="actions/create-funding.php" enctype="multipart/form-data">
 
         <div class="col-md-8 ml-auto mr-auto">
-          <?php 
-            if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
-            $_SESSION['message'] = null;
+       <?php 
+              if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
+              $_SESSION['message'] = null;
           ?>  
           <div class="form-group bmd-form-group">
             <label for="s_id" class="bmd-label">Startup</label><br>
             <select required type="text" class="form-control" name="s_id">
-            <?php
-              $stmt = $pdo->prepare('select s_id,name from startups;');
-              $stmt->execute();
-              foreach ($stmt as $row) {
-                echo "<option value='".$row['s_id']."'>".$row['name']."</option>\n";
-              }
-            ?>
+           <?php
+                $stmt = $pdo->prepare('select s_id,name from startups;');
+                $stmt->execute();
+                foreach ($stmt as $row) {
+                  echo "<option value='".$row['s_id']."'>".$row['name']."</option>\n";
+                }
+              ?>
             </select>
           </div>
-          
-            
-          <div class="form-group bmd-form-group row">
-            <label for="status_id" class="col-sm-4">No of Investors:</label>
-            <div class="col-sm-4">
-              <input type="number" class="form-control" name="no_investors" id="no_investors" max="10" min="1">
-              <button type="button" id="btn_investors" class="btn btn-round" onclick="update_investors()">Update</button>
-            </div>
-          </div>
 
-          <div id="investors_parent">
-            <div class="form-group bmd-form-group">
-              <label for="inv_id1" class="bmd-label">Investor 1:</label><br>
-              <select required type="text" class="form-control" name="inv_id1">
-                <?php echo $selectdata;?>
-              </select>
-            </div>
+          <div class="form-group bmd-form-group">
+            <label for="inv_id" class="bmd-label">Investor:</label><br>
+            <select required type="text" class="form-control" name="inv_id">
+           <?php
+                $stmt = $pdo->prepare("select inv_id,name from investors where inv_id = '0';");
+                $stmt->execute();
+                foreach ($stmt as $row) {
+                  echo "<option value='".$row['inv_id']."' selected>".$row['name']."</option>\n";
+                }
+                $stmt = $pdo->prepare('select inv_id,name from investors where inv_id != 0;');
+                $stmt->execute();
+                foreach ($stmt as $row) {
+                  echo "<option value='".$row['inv_id']."'>".$row['name']."</option>\n";
+                }
+              ?>
+            </select>
           </div>
-
+<!-- 
+          <div class="form-group bmd-form-group">
+            <label for="amount" class="bmd-label-floating">Amount:</label>
+            <input type="text" class="form-control" name="amount" id="amount">
+            <span class="bmd-help">Enter the Amount given in Dollars.</span>
+          </div>
+ -->
           <div class="form-group bmd-form-group">
             <label for="amount" class="bmd-label">Amount:</label><br>
             <div class="input-group" id="amount_holder">
@@ -116,8 +106,8 @@
           </div>
 
           <button class="btn btn-primary btn-round" name="submit">
-              <i class="material-icons">save</i> Submit
-            </button>
+                <i class="material-icons">save</i> Submit
+              </button>
 
         </div>
       </form><!-- container/form -->
@@ -180,26 +170,6 @@
         doubleClickSelection:true,
         precision: 0
       });
-      function update_investors() {
-        i=1;
-        no = document.getElementById('no_investors').value;
-        parent = document.getElementById('investors_parent');
-        parent.innerHTML='';
-        if(no<=10 && no>=1){
-          while(i<=no){
-            parent.innerHTML += `<div class='form-group bmd-form-group'>
-                                  <label for='inv_id${i}' class="bmd-label">Investor ${i}:</label><br>
-                                    <select required type="text" class="form-control" name="inv_id${i}">
-                                      <?php echo $selectdata;?>
-                                    </select>
-                                  </div>`;
-            i += 1;
-          }
-        }
-        else{
-          alert('please enter a number between 1 and 10');
-          document.getElementById('no_investors').value=1;
-        }
-      }
+
   
 </script>

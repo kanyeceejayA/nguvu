@@ -14,18 +14,20 @@
       $from = date_check($_GET['from']);
       $to = date_check($_GET['to']);
 
-      $query = "SELECT d_id,deal_id, d.s_id, s.logo, s.name as name, s.location location, GROUP_CONCAT(i.inv_id) inv_id, GROUP_CONCAT(i.name SEPARATOR ' | ') i_name, GROUP_CONCAT(i.location SEPARATOR ' | ') i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id ";
+      $query = 'SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id, d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id ';
 
       if ($to!='' && $from !='') {
-        $query .="where d_date >='.$from.' and d_date <= '$to'";
+        $query .='where d_date >= "'.$from.'" and d_date <= "'.$to.'" order by d_date desc';
       }
       elseif ($to !='' && $from =='') {
-        $query .="where d_date <= '$to'";
+        $query .='where d_date <= "'.$to.'" order by d_date desc';
       }
       elseif ($to=='' && $from !='') {
-        $query .="where d_date >= '$from'";
+        $query .='where d_date >= "'.$from.'" order by d_date desc';
       }
-      $query .=" GROUP by deal_id order by d_date desc";
+      else{
+        $query .="order by d_date desc";
+      }
 
       $stmt = $pdo->prepare($query);
 
@@ -103,7 +105,7 @@
         </div>
 
         <div id="cardholder">
-    <?php //return results
+       <?php //return results
 
             $stmt->execute();
             foreach ($stmt as $row) {
@@ -124,22 +126,6 @@
               $date = date_format(date_create($row['d_date']), 'd M Y');
               $source = $row['source'];
 
-              //Handle Multiple Investors Logic
-              $inv_id = explode(',',$inv_id);
-              $i = 0;
-              $i_name = explode(' | ',$i_name);
-              $investor_array = array();
-
-              while ($i<count($inv_id)){
-                $contents = "
-                  <a href='investor?p=$inv_id[$i]'>
-                    <strong style='font-size:1.5em;'>$i_name[$i]</strong>
-                  </a>";
-                array_push($investor_array, $contents);
-                  $i+=1;
-              }
-              $investor_details = implode(" <strong style='font-size:1.5em;font-weight:300'>|</strong> ", $investor_array);
-
               echo "
                   <!-- $name card -->
                   <div class='card'>
@@ -152,14 +138,14 @@
                           <strong style='font-size:1.5em;'>$name</strong>
                         </a>
                         <span>$location</span>
-                        </div>
-
-                        <div class='col-md-3'>
-                          <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
-                          $investor_details                    
+                      </div>
+                      <div class='col-md-3'>
+                        <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Investor/Location</div>
+                        <a href='investor?p=$inv_id'>
+                          <strong style='font-size:1.5em;'>$i_name</strong>
+                        </a>
                         <span>$i_location</span>
                       </div>
-
                       <div class='col-md-2'>
                         <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Amount/Round</div>
                         <span>$amount</span>
