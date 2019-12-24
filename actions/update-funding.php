@@ -37,9 +37,9 @@ else{
 	echo "no of investors=".$no_investors;
 	for ($i=1; $i <= $no_investors; $i++) { 
 		$inv_id[$i] = $_POST['inv_id'.$i];
-		echo "<br>\n inv id $i = $inv_id[$i]";
+		// echo "<br>\n inv id $i = $inv_id[$i]";
 	}
-	echo "<br><br><br>";
+	// echo "<br><br><br>";
 	//fetch old investors details
 	$stmt = $pdo->prepare("select d_id,inv_id from deals where deal_id = $deal_id order by d_id;");
 	$stmt->execute();
@@ -48,9 +48,9 @@ else{
 		$no_old++;
 		$inv_id_old[$no_old]= $row['inv_id'];
 		$d_id_old[$no_old]=$row['d_id'];		
-		echo "<br>\n old inv id $no_old = $inv_id_old[$no_old] and old d id $no_old = $d_id_old[$no_old]";
+		// echo "<br>\n old inv id $no_old = $inv_id_old[$no_old] and old d id $no_old = $d_id_old[$no_old]";
 		}
-	echo "<br><br>after loop, final no_old:$no_old</br>";
+	// echo "<br><br>after loop, final no_old:$no_old</br>";
 
 	//amount
 	$amount = str_replace('US$', '', $amount);
@@ -106,7 +106,7 @@ else{
 				WHERE deal_id = $deal_id and d_id=$d_id_old[$i]";
 			$stmt2 = $pdo->prepare($sql);
 			if($stmt2->execute() === TRUE){
-				echo "<br><P style='color:green'>Successfully added new records</p> ";
+				// echo "<br><P style='color:green'>Successfully added new records</p> ";
 			}
 		}
 
@@ -115,7 +115,7 @@ else{
 					WHERE deal_id = $deal_id and d_id=$d_id_old[$i]";
 			$stmt3 = $pdo->prepare($sql);
 			if($stmt3->execute() === TRUE){
-				echo "<br><P style='color:green'>Successfully deleted old records</p> ";
+				// echo "<br><P style='color:green'>Successfully deleted old records</p> ";
 			}
 		}
 
