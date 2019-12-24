@@ -9,14 +9,14 @@ if(!isset($_GET["p"])){
 	$error = '<b>Error:</b>No funding Selected for deleting!';
 }
 else{
-	$d_id = (isset($_GET["p"])) ? test_input($_GET["p"]) :NULL;
+	$deal_id = (isset($_GET["p"])) ? test_input($_GET["p"]) :NULL;
 
-	$sql = "DELETE from  deals where d_id = $d_id";
+	$sql = "DELETE from  deals where deal_id = $deal_id";
 
 	$stmt = $pdo->prepare($sql);
 
 	if ($stmt->execute() === TRUE) {
-		$message = '<b>Success: </b> successfully deleted funding with id No.: '.$d_id.'!';
+		$message = '<b>Success: </b> successfully deleted funding with id No.: '.$deal_id.'!';
 	
 	}else {
 		$error = '<b>Error when deleting company : </b> '.$pdo->error();

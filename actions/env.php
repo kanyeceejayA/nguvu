@@ -6,7 +6,7 @@ if ($_SERVER["HTTP_HOST"] == "localhost") {
     //values for localhost. Ingrid, replace any value here if it doesnt work for your environment
       'dbuser' => 'root',      
       'dbpass' => '',
-      'dbname' => 'nguvu',
+      'dbname' => 'nguvu_wp',
       'DB_PORT' => '3306',
       'target_dir' => 'C:\\wamp64\\www\\nguvu\\assets\\img\\logos\\',
   ];

@@ -1,8 +1,24 @@
 <?php if (session_status() == PHP_SESSION_NONE) {
     session_start();
 } include '../assets/header_admin.php';
-    $d_id = $_GET['p'];
-    $stmt = $pdo->prepare("select d_id,s_id,inv_id,amount,round,d_date,source from deals where d_id ='$d_id';");
+
+    //select investors data
+    $stmt = $pdo->prepare("select inv_id,name from investors where inv_id = '0';");
+    $stmt->execute();
+    $selectdata='';
+    foreach ($stmt as $row) {
+        $selectdata .= "<option value='".$row['inv_id']."'>".$row['name']."</option>\n";
+    }
+    //add other rows to investor data
+    $stmt = $pdo->prepare('select inv_id,name from investors');
+    $stmt->execute();
+    foreach ($stmt as $row) {
+        $selectdata.= "<option value='".$row['inv_id']."'>".$row['name']."</option>\n";
+    }
+
+    //fetch generic data about deal from first row of deals table
+    $deal_id = $_GET['p'];
+    $stmt = $pdo->prepare("select d_id,s_id,inv_id,amount,round,d_date,source from deals where d_id ='$deal_id';");
     $stmt->execute();
     foreach ($stmt as $row) {
       $s_id = $row['s_id']; 
@@ -12,6 +28,14 @@
       $d_date = $row['d_date']; 
       $source = $row['source']; 
     }
+
+    //fetch No of investors
+    $stmt = $pdo->prepare("select count(inv_id) no_investors from deals where deal_id ='$deal_id';");
+    $stmt->execute(array());
+    foreach ($stmt as $row) {
+      $no_investors = $row['no_investors'];
+    }
+
 ?> 
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg.jpg');">
     <div class="container">
@@ -30,9 +54,9 @@
     <br>
       <form class="container" method="POST" action="../actions/update-funding.php" enctype="multipart/form-data">
 
-        <input type="hidden" name="d_id" value="<?php echo $d_id;?>">
+        <input type="hidden" name="deal_id" value="<?php echo $deal_id;?>">
         <div class="col-md-8 ml-auto mr-auto">
-       <?php 
+          <?php 
               if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
               $_SESSION['message'] = null;
           ?>  
@@ -55,22 +79,41 @@
             </select>
           </div>
 
-          <div class="form-group bmd-form-group">
-            <label for="inv_id" class="bmd-label">Investor:</label><br>
-            <select required type="text" class="form-control" name="inv_id" value="<?php echo $inv_id;?>">
-           <?php
-                $stmt = $pdo->prepare("select inv_id,name from investors where inv_id = '$inv_id';");
-                $stmt->execute();
-                foreach ($stmt as $row) {
-                  echo "<option value='".$row['inv_id']."' selected>".$row['name']."</option>\n";
-                }
-                $stmt = $pdo->prepare("select inv_id,name from investors where inv_id != '$inv_id';");
-                $stmt->execute();
-                foreach ($stmt as $row) {
-                  echo "<option value='".$row['inv_id']."'>".$row['name']."</option>\n";
-                }
-              ?>
-            </select>
+          <div class="form-group bmd-form-group row">
+            <label for="status_id" class="col-sm-4">No of Investors:</label>
+            <div class="col-sm-4">
+              <input type="number" class="form-control" name="no_investors" id="no_investors" max="10" min="1" value="<?=$no_investors?>">
+              <button type="button" id="btn_investors" class="btn btn-round" onclick="update_investors()">Update</button>
+            </div>
+          </div>
+
+          <div id="investors_parent">
+            <?php 
+              $i=1;
+              $stmt = $pdo->prepare("select deal_id,inv_id from deals where deal_id ='$deal_id';");
+              $stmt->execute();
+              foreach ($stmt as $row) {
+            ?>
+              <div class="form-group bmd-form-group">
+                <label for="inv_id<?=$i?>" class="bmd-label">Investor <?=$i?>:</label><br>
+                <select required type="text" class="form-control" name="inv_id<?=$i?>">
+                <?php //first add the current result
+                  $inv_id = $row['inv_id'];
+                  $stmt = $pdo->prepare("select name from investors where inv_id=$inv_id");
+                  $stmt->execute();
+                  foreach ($stmt as $row) {
+                    $name = $row['name'];
+                      echo "<option selected value='$inv_id'>$name</option>\n";
+                  }
+                  //add other rows
+                  echo $selectdata;
+                ?>
+                </select>
+              </div>
+
+
+            <?php $i++;} ?>
+                  
           </div>
 
           <div class="form-group bmd-form-group">
@@ -110,7 +153,7 @@
 
           <button class="btn btn-primary btn-round" name="submit">
                 <i class="material-icons">save</i> Submit
-              </button>
+          </button>
 
         </div>
       </form><!-- container/form -->
@@ -174,5 +217,26 @@
         precision: 0
       });
 
+      function update_investors() {
+        i=1;
+        no = document.getElementById('no_investors').value;
+        parent = document.getElementById('investors_parent');
+        parent.innerHTML='';
+        if(no<=10 && no>=1){
+          while(i<=no){
+            parent.innerHTML += `<div class='form-group bmd-form-group'>
+                                  <label for='inv_id${i}' class="bmd-label">Investor ${i}:</label><br>
+                                    <select required type="text" class="form-control" name="inv_id${i}">
+                                      <?php echo $selectdata;?>
+                                    </select>
+                                  </div>`;
+            i += 1;
+          }
+        }
+        else{
+          alert('please enter a number between 1 and 10');
+          document.getElementById('no_investors').value=1;
+        }
+      }
   
 </script>

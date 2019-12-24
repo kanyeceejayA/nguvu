@@ -52,10 +52,11 @@
         <div id="cardholder">
        <?php //return results
             
-            $stmt = $pdo->prepare('SELECT d_id,s.logo,s.name as name, s.location location,i.inv_id inv_id,d.s_id, i.name i_name, i.location i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id order by d_date desc');
+            $stmt = $pdo->prepare("SELECT d_id,deal_id, d.s_id, s.logo, s.name as name, s.location location, GROUP_CONCAT(i.inv_id) inv_id, GROUP_CONCAT(i.name SEPARATOR ' | ') i_name, GROUP_CONCAT(i.location SEPARATOR ' | ') i_location,amount,round,d_date, source FROM deals d join startups s on d.s_id = s.s_id JOIN investors i on d.inv_id = i.inv_id  GROUP by deal_id order by d_date desc");
             $stmt->execute();
+
             foreach ($stmt as $row) {
-              $d_id =$row['d_id'];
+              $deal_id =$row['deal_id'];
               $logo = logo_check($row['logo']);
               $name = $row['name'];
               $location = $row['location'];
@@ -65,15 +66,24 @@
               $i_location = $row['i_location'];
               
               //handle money
-              $amount =$row['amount'];
-              if ($amount=='0'){
-                $amount = 'Undisclosed Amount';
-              }else{
-                $fmt2 = new NumberFormatter( 'UG', NumberFormatter::DECIMAL );
-                $fmt2->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 0);
-                $amount = $fmt2->formatCurrency(($amount),"USD");
-                $amount = 'US $'.$amount;
+              $amount =format_money($row['amount']);
+
+              //Handle Multiple Investors Logic
+              $inv_id = explode(',',$inv_id);
+              $i = 0;
+              $i_name = explode(' | ',$i_name);
+              $investor_array = array();
+
+              while ($i<count($inv_id)){
+                $contents = "
+                  <a href='investor?p=$inv_id[$i]'>
+                    <strong style='font-size:1.5em;'>$i_name[$i]</strong>
+                  </a>";
+                array_push($investor_array, $contents);
+                  $i+=1;
               }
+              $investor_details = implode(" <strong style='font-size:1.5em;font-weight:300'>|</strong> ", $investor_array);
+
               
               $round = $row['round'];
               $date = date_format(date_create($row['d_date']), 'd M Y');
@@ -94,9 +104,7 @@
                       </div>
                       <div class='col-md-3'>
                         <div class='text-uppercase d-lg-none d-sm-none'>Investor/Location</div>
-                        <a href='../investor?p=$inv_id'>
-                          <strong style='font-size:1.5em;'>$i_name</strong>
-                        </a>
+                        $investor_details
                         <span>$i_location</span>
                       </div>
                       <div class='col-md-2'>
@@ -106,7 +114,7 @@
                       </div>
                       <div class='col-md-2'>
                         <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Edit/Date</div>
-                         <span><a href='edit_funding?p=$d_id'><i class='fa fa-edit'></i> Edit</a> <vr></vr> <a href='../actions/delete-funding.php?p=$d_id' class='myDelete'><i class='fa fa-trash'></i> Delete</a></span>
+                         <span><a href='edit_funding?p=$deal_id'><i class='fa fa-edit'></i> Edit</a> <vr></vr> <a href='../actions/delete-funding.php?p=$deal_id' class='myDelete'><i class='fa fa-trash'></i> Delete</a></span>
                         <span>$date</span>
                       </div>
 
