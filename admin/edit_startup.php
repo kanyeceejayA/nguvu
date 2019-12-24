@@ -40,7 +40,7 @@ $stmt = $pdo->prepare("select * from startups where s_id ='$s_id';");
       $logo = logo_check($row['logo']);
     }
 
-    //fetch Founders
+    //fetch No of Founders
     $stmt = $pdo->prepare("select count(f_name) no_founders from founders where s_id ='$s_id';");
     $stmt->execute(array());
     foreach ($stmt as $row) {

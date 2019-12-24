@@ -64,7 +64,7 @@
   ?>
 <?php
           //get Recent Investments  
-          $stmt = $pdo->prepare('select * from funding_view where inv_id=?');
+          $stmt = $pdo->prepare('select * from funding_view where inv_id=? order by d_date desc LIMIT 5');
           $stmt->execute(array($_GET['p']));
 
           $s_name = array();

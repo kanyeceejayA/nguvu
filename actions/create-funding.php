@@ -4,12 +4,12 @@
 }
 	require("db_connection.php");
 //start with if to capture empty statements
-if(!isset($_POST["s_id"]) && !isset($_POST["inv_id"]) ){
+if(!isset($_POST["s_id"]) && !isset($_POST["source"]) ){
 	$error = '<b>Error:</b>Please enter all details!';
 }
 else{
 	$s_id = $_POST["s_id"];
-	$inv_id = $_POST["inv_id"];
+	// $inv_id = $_POST["inv_id"];
 	$amount = $_POST["amount"];
 	$amount = str_replace('US$', '', $amount);
 	$amount = str_replace(',', '', $amount);
@@ -18,18 +18,37 @@ else{
 	$source = $_POST["source"];
 	
 
-	$sql = "INSERT INTO deals (s_id,inv_id,amount,round,d_date,source) VALUES ('$s_id','$inv_id','$amount','$round','$d_date','$source')";
+	//investors details
+	$no_investors = $_POST['no_investors'];
+	for ($i=1; $i <= $no_investors; $i++) { 
+		$inv_id[$i] = $_POST['inv_id'.$i];
+	}
+		
 
-
-
+	$sql = "INSERT INTO deals (s_id,inv_id,amount,round,d_date,source) VALUES ('$s_id','$inv_id[1]','$amount','$round','$d_date','$source')";
 	$stmt = $pdo->prepare($sql);
-
+	
 	if ($stmt->execute() === TRUE) {
-		$message = '<b>Success: </b> Investment deal successfully saved with id No.: '.$pdo->lastInsertId().'!';
-		$s_id = $pdo->lastInsertId();
+		//save auto insert value as deal ID
+		$deal_id = $pdo->lastInsertId();
+		//loop through other investors and insert them
+		for ($i=2; $i <= $no_investors; $i++) {
+			//new insert statement for co investors with deal ID already present
+			$sql2 = "INSERT INTO deals (deal_id, s_id,inv_id,amount,round,d_date,source) VALUES ('$deal_id','$s_id','$inv_id[$i]','$amount','$round','$d_date','$source')";
+			$stmt2 = $pdo->prepare($sql2);
+			if($stmt2->execute()==FALSE){
+				$error = '<b>Error when adding new deal : </b> '.$pdo->error();
+			}
+		}
+		//update original record to add deal ID to it
+		$sql3="update deals set deal_id='$deal_id' where d_id=$deal_id";
+		$stmt = $pdo->prepare($sql3);
+		$stmt->execute();
 
+		$message = '<b>Success: </b> Investment deal ='.$deal_id.' successfully saved!';
+		
 	}else {
-		$error = '<b>Error when adding new deal : </b> '.$pdo->error();
+		$error = '<b>Error when adding new Funding : </b> '.$pdo->error();
 	}
 
 }
