@@ -58,7 +58,7 @@
           <div class="form-group bmd-form-group row">
             <label for="status_id" class="col-sm-4">No of Investors:</label>
             <div class="col-sm-4">
-              <input type="number" class="form-control" name="no_investors" id="no_investors" max="10" min="1">
+              <input type="number" class="form-control" name="no_investors" id="no_investors" min="1">
               <button type="button" id="btn_investors" class="btn btn-round" onclick="update_investors()">Update</button>
             </div>
           </div>
@@ -185,7 +185,7 @@
         no = document.getElementById('no_investors').value;
         parent = document.getElementById('investors_parent');
         parent.innerHTML='';
-        if(no<=10 && no>=1){
+        if(no>=1){
           while(i<=no){
             parent.innerHTML += `<div class='form-group bmd-form-group'>
                                   <label for='inv_id${i}' class="bmd-label">Investor ${i}:</label><br>
@@ -197,7 +197,7 @@
           }
         }
         else{
-          alert('please enter a number between 1 and 10');
+          alert('please enter a number between over 1');
           document.getElementById('no_investors').value=1;
         }
       }
