@@ -99,6 +99,8 @@
               <option value="Equity">Equity</option>
               <option value="Grant">Grant/Prize</option>
               <option value="Debt">Debt</option>
+              <option value="Debt">Convertible Note</option>
+              <option value="Debt">Aquisition/Merger</option>
               <option value="Other">Other</option>
             </select>
             <span class="bmd-help">Enter the round during which this funding occured.</span>
