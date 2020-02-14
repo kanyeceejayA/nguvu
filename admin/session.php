@@ -23,7 +23,7 @@
 	/**
 	* for a 30 minute timeout, specified in seconds
 	*/
-	$timeout_duration = 10;
+	$timeout_duration = 3600;
 
 	/**
 	* Here we look for the user's LAST_ACTIVITY timestamp. If
