@@ -1,4 +1,12 @@
 <?php
+$path = $_SERVER['DOCUMENT_ROOT'];
+require_once $path . '/wp-load.php';
+
+if ( ! is_user_logged_in() ) {
+    header("HTTP/1.1 403 Forbidden" );
+    die();
+}
+
    	if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
