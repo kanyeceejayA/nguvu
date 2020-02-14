@@ -112,6 +112,23 @@
             </div>
           </li>
 
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">refresh</i> Restore
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <!-- <a href="admin/deleted_startups" class="dropdown-item">
+                <i class="material-icons">refresh</i>Refresh Startup
+              </a> -->
+              <a href="admin/deleted_investors" class="dropdown-item">
+                <i class="material-icons">refresh</i> Restore Investor
+              </a>
+              <!-- <a href="admin/deleted_funding" class="dropdown-item">
+                <i class="material-icons">refresh</i>Refresh Funding
+              </a> -->
+            </div>
+          </li>
+
               <li class="dropdown nav-item">
                 <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                   <i class="material-icons">person</i><?php echo $_SESSION['username'];?>
@@ -120,7 +137,7 @@
                   <a href="admin/index" class="dropdown-item">
                   <i class="material-icons">build</i> Admin View
                 </a>
-                  <a href="admin/logout?p=<?php echo $_SERVER["REQUEST_URI"];?>" class="dropdown-item">
+                  <a href="admin/logout?p=<?php echo $_SERVER['REQUEST_URI'];?>" class="dropdown-item">
                     <i class="material-icons">launch</i> Logout
                   </a>
                 </div>

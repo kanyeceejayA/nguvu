@@ -108,6 +108,23 @@
 
           <li class="dropdown nav-item">
             <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+              <i class="material-icons">refresh</i> Restore
+            </a>
+            <div class="dropdown-menu dropdown-with-icons">
+              <!-- <a href="deleted_startups" class="dropdown-item">
+                <i class="material-icons">refresh</i>Refresh Startup
+              </a> -->
+              <a href="deleted_investors" class="dropdown-item">
+                <i class="material-icons">refresh</i> Restore Investor
+              </a>
+              <!-- <a href="deleted_funding" class="dropdown-item">
+                <i class="material-icons">refresh</i>Refresh Funding
+              </a> -->
+            </div>
+          </li>
+
+          <li class="dropdown nav-item">
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
               <i class="material-icons">person</i><?php echo $_SESSION['username'];?>
             </a>
             <div class="dropdown-menu dropdown-with-icons">

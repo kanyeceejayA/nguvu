@@ -60,5 +60,5 @@ function format_money($amount='0')
   return $amount;
 
 }
-
 ?>
+

@@ -6,32 +6,29 @@
 
 //start with if to capture empty statements
 if(!isset($_GET["p"])){
-	$error = '<b>Error:</b>No Investor Selected for deleting!';
+	$error = '<b>Error:</b> No Investor Selected for Restoring!';
 }
 else{
 	$inv_id = (isset($_GET["p"])) ? test_input($_GET["p"]) :NULL;
 
-	$user_agent = $_SERVER['HTTP_USER_AGENT'];
-	$account = $_SESSION['username'];
-
-	$sql = "DELETE from  investors where inv_id = $inv_id";
+    $sql= "INSERT into investors(inv_id,logo,name,phone,email,location,type_id,sector,status,website,facebook,twitter,linkedin,description) SELECT inv_id,logo,name,phone,email,location,type_id,sector,status,website,facebook,twitter,linkedin,description FROM `deleted_investors` where inv_id = $inv_id";
 
 	$stmt = $pdo->prepare($sql);
 
 	if ($stmt->execute() === TRUE) {
 
-		$sql2 = "UPDATE deleted_investors set user_agent ='$user_agent', account='$account' where inv_id = $inv_id";
+		$sql2 = "DELETE from  deleted_investors where inv_id = $inv_id";
 		$stmt2 = $pdo->prepare($sql2);
 
 		if ($stmt2->execute() === TRUE) {
-			$message = '<b>Success: </b> successfully deleted Investor with id No.: '.$inv_id.'!';
+			$message = '<b>Success: </b> successfully restored Investor with id No.: '.$inv_id.'!';
 		}else {
-			$error = '<b>Error when deleting company : </b> '.$pdo->error();
+			$error = '<b>Error when restoring company : </b> '.$pdo->error();
 		}
 
 
 	}else {
-		$error = '<b>Error when deleting company : </b> '.$pdo->error();
+		$error = '<b>Error when restoring company : </b> '.$pdo->error();
 	}
 
 }
@@ -79,5 +76,5 @@ elseif(isset($error)) {
 }else{
 	$_SESSION['message']=null;
 }
-header('location:../admin/list_investors');
+header('location:../admin/deleted_investors');
 ?>

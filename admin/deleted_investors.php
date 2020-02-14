@@ -1,6 +1,8 @@
 <?php if (session_status() == PHP_SESSION_NONE) {
     session_start();
 } include '../assets/header_admin.php';?>
+
+<script src="../assets/js/plugins/ua-parser.min.js"></script>
 <!-- banner -->
   <div class="page-header header-filter" data-parallax="true" style="background-image: url('../assets/img/bg.jpg');text-align: center;">
     <div class="container">
@@ -8,7 +10,7 @@
         <div class="col-md-8 ml-auto mr-auto">
           <div class="brand">
             <br/><br/>
-            <h2>Edit/ Delete Investors</h2>
+            <h2>Restore Deleted Investors</h2>
           </div>
         </div>
       </div>
@@ -23,7 +25,7 @@
               if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
               $_SESSION['message'] = null;
           ?>  
-        <h2>Edit Investors</h2>
+        <h2>Deleted Investors</h2>
         <div class="form-inline ml-auto" onsubmit="js_search()">
           <div class="form-group bmd-form-group ">
             <label for="fast_search" class="bmd-label-floating">Field Search</label>
@@ -43,16 +45,16 @@
         <div class="row header  d-none d-lg-flex d-md-flex">
                         <div class="col-md-2"><span>Logo</span></div>
                         <div class="col-md-4"><span>Company</span> <span>Location</span></div>
-                        <div class="col-md-2"><span>Main Sector</span><span>Status</span></div>
-                        <div class="col-md-2"><span>Startups <br>Invested in</span></div>
-                        <div class="col-md-2"><span>Edit</span><span>delete</span></div>
+                        <div class="col-md-2"><span>Account</span><span>Status</span></div>
+                        <div class="col-md-2"><span>Time Deleted<br>User Agent</span></div>
+                        <div class="col-md-2"><span> </span><span>Restore</span></div>
         </div>
 
         <div id="cardholder">
 
        <?php //return results
             
-            $stmt = $pdo->prepare('select * from investors;');
+            $stmt = $pdo->prepare('select * from deleted_investors order by deleted_on desc;');
             $stmt->execute();
             foreach ($stmt as $row) {
               $inv_id = $row['inv_id'];
@@ -65,7 +67,10 @@
               $facebook = $row['facebook'];
               $twitter = $row['twitter'];
               $linkedin = $row['linkedin'];
-
+              $deleted_on = $row['deleted_on'];
+              $user_agent= $row['user_agent'];
+              $account= $row['account'];
+                
               $stmt2 = $pdo->prepare('select * from funding_view where inv_id=?');
               $stmt2->execute(array($row['inv_id']));
               
@@ -78,6 +83,10 @@
                 }
               }
               $s_name = implode(', ', $s_name);
+
+
+
+
               echo "
                   <!-- $name card -->
                   <div class='card'>
@@ -86,7 +95,7 @@
                         <img src='../$logo' class='row-logo'>
                       </div>
                       <div class='col-md-4'>
-                        <a href='../investor?p=$inv_id'>
+                        <a href='../investor?=$name'>
                           <strong style='font-size:1.8em;'>$name</strong>
                         </a>
                         <span>$location</span>
@@ -94,18 +103,28 @@
                   
                       <div class='col-md-2'>
                         <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Main Sector/Status</div>
-                        <span>$sector</span>
+                        <span>$account</span>
                         <a class='badge badge-pill badge-success' href=''>$status</a>
                       </div>
                       <div class='col-md-2'>
-                        <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Startups Invested in</div>
-                        <span>$s_name</span>
+                        <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Deleted on</div>
+                        <span>$deleted_on</span>
+                        <span id='agent-$inv_id'></span>
                       </div>
                       <div class='col-md-2'>
-                         <span><a href='edit_investors?p=$inv_id'><i class='fa fa-edit'></i> Edit</a> <vr></vr> <a href='../actions/delete-investors.php?p=$inv_id' class='myDelete'><i class='fa fa-trash'></i> Delete</a></span>                      </div>
+                         <span><a href='../actions/restore-investor?p=$inv_id' class='myDelete'><i class='fa fa-refresh'></i> Restore</a> </div>
                     </div>
                   </div><!-- card -->
                 ";
+
+                echo "
+              <script>
+              var parser = new UAParser();
+              var result = UAParser('$user_agent');
+              var agent = result.browser['name'] + ' on ' + result.os['name'] + ' ' + result.os['version'];
+              console.log(agent);
+              document.getElementById('agent-$inv_id').innerHTML = agent;
+              </script>";
             }
           ?>
         </div> <!-- cardholder -->
@@ -155,3 +174,4 @@
 
 </script>
 <?php include "../assets/footer_admin.php";?>
+

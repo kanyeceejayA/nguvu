@@ -81,3 +81,6 @@ function update_founders() {
                   document.getElementById('no_founders').value=1;
                 }
               }
+
+
+
