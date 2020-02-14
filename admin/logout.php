@@ -1,8 +1,9 @@
 <?php
-include('../actions/env.php');
 
  // 1. Find the session
  session_start();
+
+include('../actions/env.php');
 
  // 2. Unset all the session variables
  $_SESSION = array();
