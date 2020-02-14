@@ -32,4 +32,7 @@ if ($_SERVER["HTTP_HOST"] == "localhost") {
           return $value;
       }
   }
+
+  //root to pull on server
+  // https://nguvu.africa:2083/cpsess7579149457/frontend/paper_lantern/version_control/index.html#/manage/%252Fpython%252Fnguvu%252Fpublic_html%252Finsights/deploy
 ?>
