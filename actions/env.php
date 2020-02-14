@@ -9,6 +9,7 @@ if ($_SERVER["HTTP_HOST"] == "localhost") {
       'dbname' => 'nguvu_wp',
       'DB_PORT' => '3306',
       'target_dir' => 'C:\\wamp64\\www\\nguvu\\assets\\img\\logos\\',
+      'root' => 'http://localhost/nguvu'
   ];
 }else{
   $variables = [
@@ -17,6 +18,7 @@ if ($_SERVER["HTTP_HOST"] == "localhost") {
       'dbname' => 'nguvu_wp',
       'DB_PORT' => '3306',
       'target_dir' => getcwd().'/../assets/img/logos/',
+      'root' => 'https://nguvu.africa/insights'
   ];
 }
   foreach ($variables as $key => $value) {

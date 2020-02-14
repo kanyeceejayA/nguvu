@@ -3,6 +3,8 @@
   if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+
    if($_SERVER["REQUEST_METHOD"] == "POST") {
       // email and password sent from form 
       
@@ -20,6 +22,7 @@
       if($count == 1) {
         $location = 'list_startups';
         $_SESSION['username'] = $username;
+        $_SESSION['LAST_ACTIVITY'] = $_SERVER['REQUEST_TIME'];
 
         if(isset($_GET['p'])){
           $location =$_GET['p'];
