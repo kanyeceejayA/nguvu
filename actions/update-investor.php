@@ -2,7 +2,8 @@
 	if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-	require("db_connection.php");
+require("../admin/session.php");
+
 	$message = null;
 	$error = null;
 //start with if to capture empty statements

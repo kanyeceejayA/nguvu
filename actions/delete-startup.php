@@ -2,7 +2,8 @@
 	if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-	require("db_connection.php");
+
+require("../admin/session.php");
 
 //start with if to capture empty statements
 if(!isset($_GET["p"])){
@@ -11,13 +12,25 @@ if(!isset($_GET["p"])){
 else{
 	$s_id = (isset($_GET["p"])) ? test_input($_GET["p"]) :NULL;
 
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	$account = $_SESSION['username'];
+
 	$sql = "DELETE from  startups where s_id = $s_id";
 
 	$stmt = $pdo->prepare($sql);
 
 	if ($stmt->execute() === TRUE) {
-		$message = '<b>Success: </b> successfully deleted startup with id No.: '.$s_id.'!';
-	
+
+		$sql2 = "UPDATE deleted_startups set user_agent ='$user_agent', account='$account' where s_id = $s_id";
+		$stmt2 = $pdo->prepare($sql2);
+
+		if ($stmt2->execute() === TRUE) {
+			$message = '<b>Success: </b> successfully deleted Startup with id No.: '.$s_id.'!';
+		}else {
+			$error = '<b>Error when deleting company : </b> '.$pdo->error();
+		}
+
+
 	}else {
 		$error = '<b>Error when deleting company : </b> '.$pdo->error();
 	}

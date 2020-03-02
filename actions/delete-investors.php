@@ -4,13 +4,7 @@
 }
 
     require("../admin/session.php");
-	// if(!isset($_SESSION['username']) || !isset($_SESSION['LAST_ACTIVITY'])){
-		
-	// 	header("location: ../admin/logout");
-		
-	// }
-
-
+	
 //start with if to capture empty statements
 if(!isset($_GET["p"])){
 	$error = '<b>Error:</b>No Investor Selected for deleting!';

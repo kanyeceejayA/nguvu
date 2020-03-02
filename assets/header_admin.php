@@ -111,9 +111,9 @@
               <i class="material-icons">refresh</i> Restore
             </a>
             <div class="dropdown-menu dropdown-with-icons">
-              <!-- <a href="deleted_startups" class="dropdown-item">
-                <i class="material-icons">refresh</i>Refresh Startup
-              </a> -->
+              <a href="deleted_startups" class="dropdown-item">
+                <i class="material-icons">refresh</i>Restore Startup
+              </a>
               <a href="deleted_investors" class="dropdown-item">
                 <i class="material-icons">refresh</i> Restore Investor
               </a>
