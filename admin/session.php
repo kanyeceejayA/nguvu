@@ -15,7 +15,8 @@
 
 	if(!isset($_SESSION['username']) || !isset($_SESSION['LAST_ACTIVITY'])){
       
-    	header("location: ".env('root')."/admin/logout");
+		header("location: ".env('root')."/admin/logout");
+		die();
 	}
 
 	$time = $_SERVER['REQUEST_TIME'];
