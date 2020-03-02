@@ -2,7 +2,14 @@
 	if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
-	require("db_connection.php");
+
+    require("../admin/session.php");
+	// if(!isset($_SESSION['username']) || !isset($_SESSION['LAST_ACTIVITY'])){
+		
+	// 	header("location: ../admin/logout");
+		
+	// }
+
 
 //start with if to capture empty statements
 if(!isset($_GET["p"])){
