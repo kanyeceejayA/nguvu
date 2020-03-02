@@ -10,7 +10,7 @@
         <div class="col-md-8 ml-auto mr-auto">
           <div class="brand">
             <br/><br/>
-            <h2>Restore Deleted Investors</h2>
+            <h2>Restore Deleted Startups</h2>
           </div>
         </div>
       </div>
@@ -25,7 +25,7 @@
               if (isset($_SESSION['message'])){echo $_SESSION['message'];}  
               $_SESSION['message'] = null;
           ?>  
-        <h2>Deleted Investors</h2>
+        <h2>Deleted Startups</h2>
         <div class="form-inline ml-auto" onsubmit="js_search()">
           <div class="form-group bmd-form-group ">
             <label for="fast_search" class="bmd-label-floating">Field Search</label>
@@ -54,23 +54,24 @@
 
        <?php //return results
             
-            $stmt = $pdo->prepare('select * from deleted_investors order by deleted_on desc;');
+            $stmt = $pdo->prepare('select * from deleted_startups order by deleted_on desc;');
             $stmt->execute();
             foreach ($stmt as $row) {
-              $inv_id = $row['inv_id'];
-              $logo = logo_check($row['logo']);
-              $name = $row['name'];
-              $sector = $row['sector'];
-              $location = $row['location'];
-              $status = $row['status'];
-              $website = $row['website'];
-              $facebook = $row['facebook'];
-              $twitter = $row['twitter'];
-              $linkedin = $row['linkedin'];
-              $deleted_on = $row['deleted_on'];
-              $user_agent= $row['user_agent'];
-              $account= $row['account'];
-            
+                $s_id  = $row['s_id'];
+                $logo  = logo_check($row['logo']);
+                $name  = $row['name'];
+                $type_id  = $row['type_id'];
+                $type_id2  = $row['type_id2'];
+                $f_year  = $row['f_year'];
+                $phone  = $row['phone'];
+                $email  = $row['email'];
+                $location  = $row['location'];
+                $funding_stage  = $row['funding_stage'];
+                
+                $deleted_on = $row['deleted_on'];
+                $user_agent = $row['user_agent'];
+                $account = $row['account'];
+               
 
               echo "
                   <!-- $name card -->
@@ -89,15 +90,15 @@
                       <div class='col-md-2'>
                         <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Main Sector/Status</div>
                         <span>$account</span>
-                        <a class='badge badge-pill badge-success' href=''>$status</a>
+                        <a class='badge badge-pill badge-success' href=''>$funding_stage</a>
                       </div>
                       <div class='col-md-2'>
                         <div class='text-uppercase font-weight-bold d-lg-none d-sm-none'>Deleted on</div>
                         <span>$deleted_on</span>
-                        <span id='agent-$inv_id'></span>
+                        <span id='agent-$s_id'></span>
                       </div>
                       <div class='col-md-2'>
-                         <span><a href='../actions/restore-investor?p=$inv_id' class='myDelete'><i class='fa fa-refresh'></i> Restore</a> </div>
+                         <span><a href='../actions/restore-startup?p=$s_id' class='myDelete'><i class='fa fa-refresh'></i> Restore</a> </div>
                     </div>
                   </div><!-- card -->
                 ";
@@ -108,7 +109,7 @@
               var result = UAParser('$user_agent');
               var agent = result.browser['name'] + ' on ' + result.os['name'] + ' ' + result.os['version'];
               console.log(agent);
-              document.getElementById('agent-$inv_id').innerHTML = agent;
+              document.getElementById('agent-$s_id').innerHTML = agent;
               </script>";
             }
           ?>
